@@ -1,0 +1,218 @@
+<Window x:Class="GlassWarehouseSystem.CageLayerManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="笼和层管理"
+        Height="900"
+        Width="1400"
+        WindowStartupLocation="CenterScreen"
+        Background="#EAEBED">
+
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#4A90E2"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+        <Style x:Key="TextBoxStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 左侧面板 -->
+        <Border Grid.Column="0" Background="White" CornerRadius="5" Padding="10" Margin="0,0,10,0">
+            <StackPanel>
+                <TextBlock Text="基本信息" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Button Content="新增" Style="{StaticResource ButtonStyle}" Click="AddNew_Click"/>
+                <TextBlock Text="现有笼列表" FontSize="14" FontWeight="Bold" Margin="0,20,0,10"/>
+                <ListBox x:Name="CageListBox" Height="600" DisplayMemberPath="CageCode" SelectionChanged="CageListBox_SelectionChanged"/>
+            </StackPanel>
+        </Border>
+
+        <!-- 右侧面板 -->
+        <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel x:Name="RightPanel" Visibility="Collapsed">
+                <!-- 笼基本信息（与 Cage 模型字段对应） -->
+                <Border Background="White" CornerRadius="5" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="笼基本信息" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- 第1行：编号、设备、笼类型、层数 -->
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="编号:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtCageCode" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="设备:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="0" Grid.Column="3" x:Name="TxtEquipmentName" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="笼类型:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="0" Grid.Column="5" x:Name="TxtCageType" Style="{StaticResource TextBoxStyle}" ToolTip="对应 CageType（整数，可空）"/>
+                            <TextBlock Grid.Row="0" Grid.Column="6" Text="层数:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="0" Grid.Column="7" x:Name="TxtLayerCount" Style="{StaticResource TextBoxStyle}"/>
+
+                            <!-- 第2行：长、宽、高、零点坐标 -->
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="长度(mm):" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtLength" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="2" Text="宽度(mm):" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="1" Grid.Column="3" x:Name="TxtWidth" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="4" Text="高度(mm):" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="1" Grid.Column="5" x:Name="TxtHeight" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="6" Text="零点坐标:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="1" Grid.Column="7" x:Name="TxtZeroCoordinate" Style="{StaticResource TextBoxStyle}" ToolTip="ZeroCoordinate"/>
+
+                            <!-- 第3行：负向限位、正向限位、入笼口间隙、出笼口间隙 -->
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="负向限位:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="2" Grid.Column="1" x:Name="TxtNegativeLimit" Style="{StaticResource TextBoxStyle}" ToolTip="NegativeLimit"/>
+                            <TextBlock Grid.Row="2" Grid.Column="2" Text="正向限位:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="2" Grid.Column="3" x:Name="TxtPositiveLimit" Style="{StaticResource TextBoxStyle}" ToolTip="PositiveLimit"/>
+                            <TextBlock Grid.Row="2" Grid.Column="4" Text="入笼口间隙:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="2" Grid.Column="5" x:Name="TxtInboundGap" Style="{StaticResource TextBoxStyle}" ToolTip="InboundGap"/>
+                            <TextBlock Grid.Row="2" Grid.Column="6" Text="出笼口间隙:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="2" Grid.Column="7" x:Name="TxtOutboundGap" Style="{StaticResource TextBoxStyle}" ToolTip="OutboundGap"/>
+
+                            <!-- 第4行：笼序号、X坐标、Y坐标、过渡层序号 -->
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="笼序号:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="3" Grid.Column="1" x:Name="TxtCageSequenceNo" Style="{StaticResource TextBoxStyle}" ToolTip="CageSequenceNo"/>
+                            <TextBlock Grid.Row="3" Grid.Column="2" Text="X坐标:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="3" Grid.Column="3" x:Name="TxtXCoordinate" Style="{StaticResource TextBoxStyle}" ToolTip="XCoordinate"/>
+                            <TextBlock Grid.Row="3" Grid.Column="4" Text="Y坐标:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="3" Grid.Column="5" x:Name="TxtYCoordinate" Style="{StaticResource TextBoxStyle}" ToolTip="YCoordinate"/>
+                            <TextBlock Grid.Row="3" Grid.Column="6" Text="过渡层序号:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="3" Grid.Column="7" x:Name="TxtTransitionLayerNo" Style="{StaticResource TextBoxStyle}" ToolTip="TransitionLayerNo"/>
+
+                            <!-- 第5行：栅格初始序号、栅格起始坐标、是否单向、位置类型 -->
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="栅格初始序号:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="4" Grid.Column="1" x:Name="TxtGridInitSeqNo" Style="{StaticResource TextBoxStyle}" ToolTip="GridInitSeqNo"/>
+                            <TextBlock Grid.Row="4" Grid.Column="2" Text="栅格起始坐标:" Style="{StaticResource LabelStyle}"/>
+                            <TextBox Grid.Row="4" Grid.Column="3" x:Name="TxtGridStartCoord" Style="{StaticResource TextBoxStyle}" ToolTip="GridStartCoord"/>
+                            <TextBlock Grid.Row="4" Grid.Column="4" Text="单向出入笼:" Style="{StaticResource LabelStyle}" VerticalAlignment="Center"/>
+                            <CheckBox Grid.Row="4" Grid.Column="5" x:Name="ChkIsOneWay" Content="是" VerticalAlignment="Center" Margin="5" ToolTip="IsOneWay（未勾选为否）"/>
+                            <TextBlock Grid.Row="4" Grid.Column="6" Text="位置类型:" Style="{StaticResource LabelStyle}" VerticalAlignment="Center"/>
+                            <StackPanel Grid.Row="4" Grid.Column="7" Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,5,0">
+                                <RadioButton x:Name="RdoLocationA" Content="A笼" GroupName="CageLocationType" Margin="0,0,16,0" ToolTip="保存为数据库字段 LocationType = A"/>
+                                <RadioButton x:Name="RdoLocationB" Content="B笼" GroupName="CageLocationType" ToolTip="保存为数据库字段 LocationType = B"/>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- 层默认信息：二行三列 + 右侧「初始化层」「批量删除层」 -->
+                <Border Background="White" CornerRadius="5" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="层默认信息" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid MinWidth="520">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <!-- 第1行：长度、宽度、间距（与笼层间距 Space 一致） -->
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="长度(mm):" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Row="0" Grid.Column="1" x:Name="TxtLayerLength" Style="{StaticResource TextBoxStyle}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="宽度(mm):" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Row="0" Grid.Column="3" x:Name="TxtLayerWidth" Style="{StaticResource TextBoxStyle}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="4" Text="间距(mm):" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Row="0" Grid.Column="5" x:Name="TxtSpace" Style="{StaticResource TextBoxStyle}" ToolTip="与笼基本信息中层间距一致，保存时写入 Cage.Space"/>
+                                <!-- 第2行：起始序号、数量、起始坐标（仅界面用，不入库） -->
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="起始序号:" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Row="1" Grid.Column="1" x:Name="TxtLayerStartSeq" Style="{StaticResource TextBoxStyle}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="2" Text="数量:" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Row="1" Grid.Column="3" x:Name="TxtLayerBatchCount" Style="{StaticResource TextBoxStyle}"/>
+                                <TextBlock Grid.Row="1" Grid.Column="4" Text="起始坐标:" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Grid.Row="1" Grid.Column="5" x:Name="TxtLayerDefaultStartCoord" Style="{StaticResource TextBoxStyle}"/>
+                            </Grid>
+                            <Grid Margin="16,0,0,0" VerticalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- 第1行：初始化层 + 标记破损 -->
+                                <Button Grid.Row="0" Grid.Column="0" Content="初始化层" Style="{StaticResource ButtonStyle}" Click="InitializeLayers_Click" MinWidth="120"/>
+                                <Button Grid.Row="0" Grid.Column="1" Content="标记破损" Style="{StaticResource ButtonStyle}" Click="MarkLayersDamaged_Click" MinWidth="120" Background="#E74C3C"/>
+
+                                <!-- 第2行：批量删除层 + 标记良好 -->
+                                <Button Grid.Row="1" Grid.Column="0" Content="批量删除层" Style="{StaticResource ButtonStyle}" Click="BatchDelete_Click" MinWidth="120" Background="#E74C3C"/>
+                                <Button Grid.Row="1" Grid.Column="1" Content="标记良好" Style="{StaticResource ButtonStyle}" Click="MarkLayersGood_Click" MinWidth="120" Background="#27AE60"/>
+                            </Grid>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- 层数据显示 -->
+                <Border Background="White" CornerRadius="5" Padding="15" Margin="0,0,0,10">
+                    <StackPanel>
+                        <TextBlock Text="层数据" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <DataGrid x:Name="LayersDataGrid"
+                                  AutoGenerateColumns="False"
+                                  Height="300"
+                                  CanUserAddRows="False"
+                                  IsReadOnly="True"
+                                  SelectionMode="Extended">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="层编号" Binding="{Binding LayerID}" Width="120"/>
+                                <DataGridTextColumn Header="层序号" Binding="{Binding LayerNo}" Width="80"/>
+                                <DataGridTextColumn Header="层长" Binding="{Binding Length, StringFormat=F4}" Width="100"/>
+                                <DataGridTextColumn Header="层宽" Binding="{Binding Width, StringFormat=F4}" Width="100"/>
+                                <DataGridTextColumn Header="层间距" Binding="{Binding LayerSpacing, StringFormat=F4}" Width="90"/>
+                                <DataGridTextColumn Header="坐标" Binding="{Binding Coordinate, StringFormat=F4}" Width="100"/>
+                                <DataGridCheckBoxColumn Header="破损" Binding="{Binding IsDamaged}" Width="80" IsThreeState="False"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Border>
+
+                <!-- 保存按钮 -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="保存" Style="{StaticResource ButtonStyle}" Click="Save_Click" Width="150"/>
+                    <Button Content="删除" Style="{StaticResource ButtonStyle}" Click="Delete_Click" Width="150" Background="#E74C3C"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

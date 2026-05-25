@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36 Edg/145.0.0.0" version="29.3.0">
+  <diagram name="第 1 页" id="pnuWHgyqvFnzKZPHhq1r">
+    <mxGraphModel dx="1205" dy="659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="560" width="690" x="90" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="导入用户Excel" vertex="1">
+          <mxGeometry height="30" width="90" x="130" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="复位设备状态" vertex="1">
+          <mxGeometry height="30" width="90" x="240" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="导出理片汇总数据" vertex="1">
+          <mxGeometry height="30" width="100" x="120" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-10" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="导出待补片数据" vertex="1">
+          <mxGeometry height="30" width="100" x="240" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="流程卡扫码" vertex="1">
+          <mxGeometry height="35" width="110" x="358.5" y="207.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="异常数据" vertex="1">
+          <mxGeometry height="80" width="150" x="610" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="比对记录" vertex="1">
+          <mxGeometry height="80" width="150" x="610" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="启动服务" vertex="1">
+          <mxGeometry height="40" width="80" x="600" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="停止服务" vertex="1">
+          <mxGeometry height="40" width="80" x="690" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-18" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="列表" vertex="1">
+          <mxGeometry height="200" width="320" x="125" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-19" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="详细信息" vertex="1">
+          <mxGeometry height="30" width="325" x="125" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-20" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="参数设置" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-23" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="标记破损" vertex="1">
+          <mxGeometry height="30" width="75" x="132.5" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-24" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="手动报工" vertex="1">
+          <mxGeometry height="30" width="75" x="230" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-25" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="手动完成理片" vertex="1">
+          <mxGeometry height="30" width="75" x="230" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="手动确认入库" vertex="1">
+          <mxGeometry height="30" width="75" x="130" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-27" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="日志" vertex="1">
+          <mxGeometry height="60" width="315" x="130" y="600" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

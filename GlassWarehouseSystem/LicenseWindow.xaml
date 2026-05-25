@@ -1,0 +1,164 @@
+<Window x:Class="GlassWarehouseSystem.LicenseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="授权校验"
+        Height="650"
+        Width="960"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        WindowStyle="SingleBorderWindow"
+        ShowInTaskbar="True"
+        Background="#F5F7FA"
+        TextOptions.TextFormattingMode="Display" 
+        TextOptions.TextRenderingMode="ClearType">
+    
+    <Window.Resources>
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="Width" Value="170"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="BorderBrush" Value="#D1D8E0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#F8F9FA"/>
+                                <Setter Property="BorderBrush" Value="#A5B1C2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="#3498DB"/>
+            <Setter Property="BorderBrush" Value="#2980B9"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#4AA3DF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="InfoLabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#2C3E50"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="8" Background="White" BorderBrush="#E5E9F0" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="#5B8CB8" CornerRadius="8,8,0,0" Padding="16,10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="🛡️" FontSize="16" Foreground="White" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="系统授权与注册" FontSize="14" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center"/>
+                        <TextBlock Text="· 请核对机器信息并完成注册" FontSize="12" Foreground="#D4E4F0" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <Grid Grid.Row="1" Margin="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="420"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" BorderBrush="#EDF2F7" BorderThickness="1" Background="#FBFCFE" CornerRadius="6" Padding="10">
+                        <Grid>
+                            <Image x:Name="imgLogo" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock Text="🖼️" FontSize="40" Foreground="#CBD5E0" HorizontalAlignment="Center"/>
+                                <TextBlock Text="加载LOGO位置" Foreground="#A0AEC0" FontSize="13" Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Column="1" Margin="25,0,0,0">
+                        <TextBlock Text="机器基本信息" Style="{StaticResource InfoLabelStyle}" Margin="0,5,0,12" FontSize="15"/>
+                        
+                        <Border Background="#F8FAFC" Padding="15" CornerRadius="6" BorderBrush="#EDF2F7" BorderThickness="1">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="硬件构成：" Foreground="#718096" Width="80"/>
+                                    <TextBlock Text="CPU / 主板 / 硬盘" Foreground="#2D3748" FontWeight="Medium"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="指纹算法：" Foreground="#718096" Width="80"/>
+                                    <TextBlock Text="SHA256 + Base64" Foreground="#2D3748" FontWeight="Medium"/>
+                                </StackPanel>
+                                <Separator Background="#E2E8F0" Margin="0,5,0,10"/>
+                                <TextBlock Text="提示：请复制下方机器码提供给发码端进行授权申请。" 
+                                           FontSize="12" Foreground="#5B8CB8" TextWrapping="Wrap" LineHeight="18"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="0,15,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="0,0,15,0">
+                <TextBlock Text="机器码 / 哈希号" Style="{StaticResource InfoLabelStyle}" Margin="0,0,0,8"/>
+                <TextBox x:Name="txtHwHash" Height="32" Background="#F1F5F9" Foreground="#475569"
+                         BorderBrush="#CBD5E0" IsReadOnly="True" VerticalContentAlignment="Center" Padding="8,0" Margin="0,0,0,15"/>
+
+                <TextBlock Text="请输入授权码（注册密码）" Style="{StaticResource InfoLabelStyle}" Margin="0,0,0,8"/>
+                <TextBox x:Name="txtSerial" Height="100" TextWrapping="Wrap" AcceptsReturn="True"
+                         BorderBrush="#3498DB" BorderThickness="1.5"
+                         PreviewKeyDown="txtSerial_PreviewKeyDown" VerticalContentAlignment="Top" Padding="8" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Bottom">
+                <Button Content="🔍 获取机器码"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Click="BtnGetMachineCode_Click"/>
+
+                <Button Content="📂 导入注册文件"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Click="BtnImportFile_Click"/>
+
+                <Button Content="🚀 提交注册"
+                        Style="{StaticResource PrimaryButtonStyle}"
+                        IsDefault="True"
+                        Click="BtnOk_Click"/>
+
+                <Button Content="❌ 取消"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Foreground="#E74C3C"
+                        IsCancel="True"
+                        Margin="0,0,0,0"
+                        Click="BtnCancel_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

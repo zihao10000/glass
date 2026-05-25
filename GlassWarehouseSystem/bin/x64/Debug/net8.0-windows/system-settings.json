@@ -1,0 +1,21 @@
+{
+  "Database": {
+    "ServerAddress": "127.0.0.1",
+    "DatabaseName": "glasswarehousedb",
+    "ServerPort": 3306,
+    "RedisDbIndex": 0,
+    "RedisPort": 6379,
+    "DbUser": "root",
+    "DbPassword": "123456"
+  },
+  "PlcConnections": [],
+  "LabelPrinter": {
+    "PrinterName": "",
+    "BatchPrint": true,
+    "PrintMode": "Network",
+    "ServicePort": 8100,
+    "ServiceIp": "192.168.88.2",
+    "PageWidth": 50.0,
+    "PageHeight": 30.0
+  }
+}

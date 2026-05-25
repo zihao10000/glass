@@ -1,0 +1,99 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="TestScanner\**" />
+    <None Remove="TestScanner\**" />
+    <Compile Remove="TestInboundFlow\**" />
+    <None Remove="TestInboundFlow\**" />
+    <Compile Remove="QueryConfig\**" />
+    <None Remove="QueryConfig\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HslCommunication" Version="12.0.3" />
+    <PackageReference Include="EPPlus" Version="8.4.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MiniExcel" Version="1.34.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
+    <PackageReference Include="StackExchange.Redis" Version="2.10.14" />
+    <PackageReference Include="System.Management" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="MvCodeReaderSDKNet">
+      <HintPath>..\Development\Modules\MvCodeReaderSDK\DotNet\win64\MvCodeReaderSDK.Net.dll</HintPath>
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <!-- 海康威视扫码 SDK 原生 C++ DLL，运行时必须与 exe 在同一目录 -->
+    <Content Include="..\Development\Modules\MvCodeReaderSDK\SDK\win64\*.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\avutil-57.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\CLAllSerial_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\CLProtocol_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\CLSerCOM.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\FormatConversion.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\GCBase_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\GenApi_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\hlog.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\hpr.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\libwinpthread-1.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\log4cpp_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\Log_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MathParser_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MediaProcess.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\msvcp120.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\msvcp90.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\msvcr100.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\msvcr120.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\msvcr90.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MvCodeReaderCtrl.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MvCodeReaderCtrlWrapper.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MVGigEVision.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MvSmtDevCtrl.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MvVirtualCodeReaderCtrl.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\MvZip.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\NodeMapData_MD_VC120_v3_0_MV.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\pthreadGC2.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\pthreadVC2.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\svml_dispmd.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\swscale-6.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\VirXMLParse.dll" />
+    <Content Remove="..\Development\Modules\MvCodeReaderSDK\SDK\win64\XmlParser_MD_VC120_v3_0_MV.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="二维码.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Utils\" />
+    <Folder Include="Views\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+</Project>

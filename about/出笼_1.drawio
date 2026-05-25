@@ -1,0 +1,55 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram name="第 1 页" id="pnuWHgyqvFnzKZPHhq1r">
+    <mxGraphModel dx="1200" dy="815" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="90" y="130" width="690" height="560" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-10" value="订单编号选择" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="132.5" y="190" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-14" value="出笼顺序" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="610" y="240" width="150" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-16" value="启动服务" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="510" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-17" value="停止服务" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="690" y="510" width="80" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-18" value="列表" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="130" y="250" width="320" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-19" value="详细信息" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="127.5" y="505" width="325" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-20" value="参数设置" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="470" y="490" width="90" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ezlP9l8Re_Ri0p_BsBcc-27" value="日志" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="132.5" y="585" width="315" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="w3quPF7Yr1dai_8Z_0Xs-1" value="顺移" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="180" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="w3quPF7Yr1dai_8Z_0Xs-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="277.5" y="555" as="sourcePoint" />
+            <mxPoint x="277.5" y="555" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="w3quPF7Yr1dai_8Z_0Xs-5" value="客户选择" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="132.5" y="160" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="w3quPF7Yr1dai_8Z_0Xs-6" value="确认优先级" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="160" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="w3quPF7Yr1dai_8Z_0Xs-8" value="取消" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="190" width="90" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

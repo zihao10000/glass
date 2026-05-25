@@ -1,0 +1,126 @@
+<Window x:Class="PlcModbusTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="PLC Modbus Tool"
+        Height="500" Width="520"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="12,10,12,10">
+
+        <!-- 连接设置 -->
+        <GroupBox Header="连接设置" Margin="0,0,0,8">
+            <Grid Margin="8,6,8,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- IP / 端口 / 站号 -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Label Content="IP 地址" VerticalAlignment="Center" Width="55"/>
+                    <TextBox x:Name="txtIp" Text="192.168.1.8" Width="120" Height="26"
+                             Margin="0,0,16,0" VerticalContentAlignment="Center"/>
+
+                    <Label Content="端口" VerticalAlignment="Center" Width="35"/>
+                    <TextBox x:Name="txtPort" Text="502" Width="55" Height="26"
+                             Margin="0,0,16,0" VerticalContentAlignment="Center"/>
+
+                    <Label Content="站号" VerticalAlignment="Center" Width="35"/>
+                    <TextBox x:Name="txtStation" Text="1" Width="45" Height="26"
+                             VerticalContentAlignment="Center"/>
+                </StackPanel>
+
+                <!-- 数据格式 / 地址从零 -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Label Content="数据格式" VerticalAlignment="Center" Width="55"/>
+                    <ComboBox x:Name="cmbDataFormat" Width="80" Height="26"
+                              Margin="0,0,24,0" SelectedIndex="2">
+                        <ComboBoxItem Content="ABCD"/>
+                        <ComboBoxItem Content="BADC"/>
+                        <ComboBoxItem Content="CDAB"/>
+                        <ComboBoxItem Content="DCBA"/>
+                    </ComboBox>
+                    <CheckBox x:Name="chkAddrZero" Content="地址从零开始"
+                              IsChecked="True" VerticalAlignment="Center"/>
+                </StackPanel>
+
+                <!-- 按钮 + 状态 -->
+                <StackPanel Grid.Row="4" Orientation="Horizontal">
+                    <Button x:Name="btnConnect" Content="连接 PLC"
+                            Width="90" Height="28" Margin="0,0,16,0"
+                            Click="BtnConnect_Click"/>
+                    <TextBlock x:Name="lblStatus" Text="● 未连接"
+                               Foreground="Red" VerticalAlignment="Center" FontSize="12"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- 读写操作 -->
+        <GroupBox Header="读写操作" Margin="0,0,0,8">
+            <Grid Margin="8,6,8,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="8"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- 地址 / 类型 / 值 -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Label Content="地址" VerticalAlignment="Center" Width="35"/>
+                    <TextBox x:Name="txtAddress" Text="100" Width="80" Height="26"
+                             Margin="0,0,16,0" VerticalContentAlignment="Center"/>
+
+                    <Label Content="类型" VerticalAlignment="Center" Width="35"/>
+                    <ComboBox x:Name="cmbType" Width="80" Height="26"
+                              Margin="0,0,16,0" SelectedIndex="0">
+                        <ComboBoxItem Content="float"/>
+                        <ComboBoxItem Content="double"/>
+                        <ComboBoxItem Content="int"/>
+                        <ComboBoxItem Content="short"/>
+                        <ComboBoxItem Content="bool"/>
+                        <ComboBoxItem Content="string"/>
+                    </ComboBox>
+
+                    <Label Content="值" VerticalAlignment="Center" Width="20"/>
+                    <TextBox x:Name="txtValue" Width="120" Height="26"
+                             VerticalContentAlignment="Center"
+                             KeyDown="TxtValue_KeyDown"/>
+                </StackPanel>
+
+                <!-- 写入 / 读取 -->
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <Button Content="写  入" Width="90" Height="28"
+                            Margin="0,0,10,0" Click="BtnWrite_Click"/>
+                    <Button Content="读  取" Width="90" Height="28"
+                            Click="BtnRead_Click"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <!-- 日志 -->
+        <GroupBox Header="日志">
+            <Grid Margin="8,4,8,6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="190"/>
+                    <RowDefinition Height="6"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <RichTextBox x:Name="rtbLog" Grid.Row="0"
+                             IsReadOnly="True"
+                             FontFamily="Consolas" FontSize="12"
+                             Background="#1E1E1E" Foreground="#D4D4D4"
+                             VerticalScrollBarVisibility="Auto"/>
+
+                <Button Grid.Row="2" Content="清空日志"
+                        Width="80" Height="24" HorizontalAlignment="Left"
+                        Click="BtnClearLog_Click"/>
+            </Grid>
+        </GroupBox>
+
+    </StackPanel>
+</Window>

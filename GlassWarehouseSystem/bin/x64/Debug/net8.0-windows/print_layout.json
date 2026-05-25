@@ -1,0 +1,40 @@
+{
+  "NamedElements": {
+    "named:qrCodeElement": {
+      "Left": 50,
+      "Top": 50,
+      "ZIndex": 0
+    },
+    "named:txtOriginalCustomer": {
+      "Left": 150,
+      "Top": 50,
+      "ZIndex": 0
+    },
+    "named:txtOrderNumber": {
+      "Left": 354.6666666666667,
+      "Top": 51,
+      "ZIndex": 1000
+    },
+    "named:txtFloorNumber": {
+      "Left": 266.6666666666667,
+      "Top": 52.666666666666686,
+      "ZIndex": 999
+    },
+    "named:txtDimensions": {
+      "Left": 438.6666666666667,
+      "Top": 51.33333333333337,
+      "ZIndex": 1001
+    },
+    "named:txtProductName": {
+      "Left": 550.6666666666666,
+      "Top": 53.66666666666666,
+      "ZIndex": 1002
+    },
+    "named:barcodeElement": {
+      "Left": 270.66666666666663,
+      "Top": 92.66666666666666,
+      "ZIndex": 1003
+    }
+  },
+  "DynamicElements": []
+}

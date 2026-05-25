@@ -1,0 +1,32 @@
+[ 03/24/26 15:12:13 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:12:13 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:12:13 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.
+[ 03/24/26 15:12:13 ..\src\main\cpp\hierarchy.cpp 114 ] No appender could be found for logger (VirMvCodeCameraSDK).
+[ 03/24/26 15:12:13 ..\src\main\cpp\hierarchy.cpp 115 ] Please initialize the log4cxx system properly.
+[ 03/24/26 15:12:16 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:12:16 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:12:16 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.
+[ 03/24/26 15:51:29 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:51:29 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:51:29 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.
+[ 03/24/26 15:51:29 ..\src\main\cpp\hierarchy.cpp 114 ] No appender could be found for logger (VirMvCodeCameraSDK).
+[ 03/24/26 15:51:29 ..\src\main\cpp\hierarchy.cpp 115 ] Please initialize the log4cxx system properly.
+[ 03/24/26 15:51:32 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:51:32 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:51:32 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.
+[ 03/24/26 15:52:01 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:52:01 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:52:01 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.
+[ 03/24/26 15:52:01 ..\src\main\cpp\hierarchy.cpp 114 ] No appender could be found for logger (VirMvCodeCameraSDK).
+[ 03/24/26 15:52:01 ..\src\main\cpp\hierarchy.cpp 115 ] Please initialize the log4cxx system properly.
+[ 03/24/26 15:52:04 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:52:04 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:52:04 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.
+[ 03/24/26 15:52:23 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:52:23 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:52:23 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.
+[ 03/24/26 15:52:23 ..\src\main\cpp\hierarchy.cpp 114 ] No appender could be found for logger (VirMvCodeCameraSDK).
+[ 03/24/26 15:52:23 ..\src\main\cpp\hierarchy.cpp 115 ] Please initialize the log4cxx system properly.
+[ 03/24/26 15:52:26 ..\src\main\cpp\optionconverter.cpp 312 ] Could not find value for key log4j.appender.default
+[ 03/24/26 15:52:26 ..\src\main\cpp\propertyconfigurator.cpp 407 ] Could not instantiate appender named "default".
+[ 03/24/26 15:52:26 ..\src\main\cpp\fileappender.cpp 212 ]  [ IO Exception : status code = 720005 ] setFile(C:\Windows\Temp\MvCodeReaderSDKLog\MvCodeReaderSdk.log,true) call failed.

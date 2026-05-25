@@ -1,0 +1,562 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Glass\\5.14\\GlassWarehouseSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\inboundwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\inboundwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\inboundwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\inboundwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\quanjvcanshu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\quanjvcanshu.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\cagedashboardwindowb.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\cagedashboardwindowb.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\controlplcuser1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\controlplcuser1.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\data\\warehousedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\data\\warehousedbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\viewmodels\\cagelayerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\viewmodels\\cagelayerviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\cagedashboardwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\cagedashboardwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\systemsettingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\systemsettingswindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\config\\localsystemsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\config\\localsystemsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\config\\appconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\config\\appconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\services\\redishelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\services\\redishelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\config\\localsystemconfigservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\config\\localsystemconfigservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\services\\cagefinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\services\\cagefinder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\services\\cachequeryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\services\\cachequeryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\outboundtaskmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\outboundtaskmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\layer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\services\\outboundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\services\\outboundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\services\\inboundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\services\\inboundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\relaycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\outboundwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\outboundwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\othermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\othermodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\materialstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\materialstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\outboundwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\outboundwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\config_result.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\config_result.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\config_final.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\config_final.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\printwindowdraggable_improved.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\printwindowdraggable_improved.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\material.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\models\\order.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|d:\\glass\\5.14\\glasswarehousesystem\\glasswarehousesystem\\services\\shiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E71BBF6-F4AB-6920-45B3-0D1F6B84E1EA}|GlassWarehouseSystem\\GlassWarehouseSystem.csproj|solutionrelative:glasswarehousesystem\\services\\shiftservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{007a3a6b-b5b2-454d-a2bd-cf929f989be2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CageDashboardWindowB.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\CageDashboardWindowB.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\CageDashboardWindowB.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\CageDashboardWindowB.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\CageDashboardWindowB.xaml.cs",
+              "ViewState": "AgIAAFcAAAAAAAAAAAAAwGUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:42:41.527Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "WarehouseDbContext.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Data\\WarehouseDbContext.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Data\\WarehouseDbContext.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Data\\WarehouseDbContext.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Data\\WarehouseDbContext.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAxwFwAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T06:41:05.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CageLayerViewModel.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\ViewModels\\CageLayerViewModel.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\ViewModels\\CageLayerViewModel.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\ViewModels\\CageLayerViewModel.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\ViewModels\\CageLayerViewModel.cs",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAAwK0AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T07:52:11.965Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "InboundWindow.xaml",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\InboundWindow.xaml",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\InboundWindow.xaml",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\InboundWindow.xaml",
+              "RelativeToolTip": "GlassWarehouseSystem\\InboundWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-28T01:53:18.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "InboundWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\InboundWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\InboundWindow.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\InboundWindow.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\InboundWindow.xaml.cs",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAywIQAAABkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T08:20:04.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Quanjvcanshu.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Quanjvcanshu.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Quanjvcanshu.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Quanjvcanshu.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Quanjvcanshu.xaml.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAA0wCEAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:12:08.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ControlPlcUser1.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\ControlPlcUser1.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\ControlPlcUser1.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\ControlPlcUser1.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\ControlPlcUser1.xaml.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAgwBUAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:42:46.515Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CageDashboardWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\CageDashboardWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\CageDashboardWindow.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\CageDashboardWindow.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\CageDashboardWindow.xaml.cs",
+              "ViewState": "AgIAAAcBAAAAAAAAAAAAwBABAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:36:44.97Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SystemSettingsWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\SystemSettingsWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\SystemSettingsWindow.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\SystemSettingsWindow.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\SystemSettingsWindow.xaml.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAywAkAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T07:38:42.167Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "LocalSystemSettings.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Config\\LocalSystemSettings.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Config\\LocalSystemSettings.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Config\\LocalSystemSettings.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Config\\LocalSystemSettings.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAABBwBsAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T06:48:58.84Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LocalSystemConfigService.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Config\\LocalSystemConfigService.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Config\\LocalSystemConfigService.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Config\\LocalSystemConfigService.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Config\\LocalSystemConfigService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T06:49:08.481Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RedisHelper.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\RedisHelper.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Services\\RedisHelper.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\RedisHelper.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Services\\RedisHelper.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAIwBYAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:39:36.306Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CageFinder.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\CageFinder.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Services\\CageFinder.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\CageFinder.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Services\\CageFinder.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAApwGMAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T07:47:06.984Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CacheQueryService.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\CacheQueryService.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Services\\CacheQueryService.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\CacheQueryService.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Services\\CacheQueryService.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAiwA8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-21T05:47:17.302Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "OtherModel.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\OtherModel.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\OtherModel.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\OtherModel.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\OtherModel.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAACYAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T07:40:01.112Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\App.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\App.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\App.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\App.xaml.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAA8AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T07:40:49.792Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AppConfig.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Config\\AppConfig.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Config\\AppConfig.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Config\\AppConfig.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Config\\AppConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T09:00:25.534Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "MaterialStatus.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\MaterialStatus.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\MaterialStatus.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\MaterialStatus.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\MaterialStatus.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAiwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T07:42:22.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "RelayCommand.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\RelayCommand.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\RelayCommand.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\RelayCommand.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\RelayCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T07:51:48.028Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "OutboundTaskModels.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\OutboundTaskModels.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\OutboundTaskModels.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\OutboundTaskModels.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\OutboundTaskModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-20T07:32:29.237Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "config_final.txt",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\config_final.txt",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\config_final.txt",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\config_final.txt",
+              "RelativeToolTip": "GlassWarehouseSystem\\config_final.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-05-13T08:20:07.117Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "OutboundService.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\OutboundService.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Services\\OutboundService.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\OutboundService.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Services\\OutboundService.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAwwIgAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T10:34:17.997Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Layer.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Layer.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\Layer.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Layer.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\Layer.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA1wA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T09:02:56.313Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "InboundService.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\InboundService.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Services\\InboundService.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\InboundService.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Services\\InboundService.cs",
+              "ViewState": "AgIAAF0CAAAAAAAAAAAMwHACAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-21T06:56:18.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Config.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Config.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\Config.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Config.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\Config.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAADwvxUAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T03:12:16.935Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "OutboundWindow.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\OutboundWindow.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\OutboundWindow.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\OutboundWindow.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\OutboundWindow.xaml.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAawIAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T01:45:40.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "OutboundWindow.xaml",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\OutboundWindow.xaml",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\OutboundWindow.xaml",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\OutboundWindow.xaml",
+              "RelativeToolTip": "GlassWarehouseSystem\\OutboundWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-08T01:50:36.188Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "config_result.txt",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\config_result.txt",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\config_result.txt",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\config_result.txt",
+              "RelativeToolTip": "GlassWarehouseSystem\\config_result.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2026-05-13T08:20:08.925Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "App.xaml",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\App.xaml",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\App.xaml",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\App.xaml",
+              "RelativeToolTip": "GlassWarehouseSystem\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-05-12T09:00:15.006Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "PrintWindowDraggable_Improved.xaml.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\PrintWindowDraggable_Improved.xaml.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\PrintWindowDraggable_Improved.xaml.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\PrintWindowDraggable_Improved.xaml.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\PrintWindowDraggable_Improved.xaml.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAtwB0AAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T07:58:55.744Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "Material.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Material.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\Material.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Material.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\Material.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAADwv4sAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T03:12:43.479Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Order.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Order.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Models\\Order.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Models\\Order.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Models\\Order.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T07:12:39.091Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "ShiftService.cs",
+              "DocumentMoniker": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\ShiftService.cs",
+              "RelativeDocumentMoniker": "GlassWarehouseSystem\\Services\\ShiftService.cs",
+              "ToolTip": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\Services\\ShiftService.cs",
+              "RelativeToolTip": "GlassWarehouseSystem\\Services\\ShiftService.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAIAzwBsAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-17T01:27:11.032Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

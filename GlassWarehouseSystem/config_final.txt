@@ -1,0 +1,85 @@
+﻿=== Config Check Result ===
+  [OK]  MeasureErrorAllowance          <- 测量误差容限(mm)
+  [OK]  DataSourceType                 <- 数据来源(0=扫码,1=PLC测量)
+  [OK]  MaxScanRetryTimes              <- 最大扫码重试次数
+  [OK]  GlassSpacing                   <- 玻璃安全间距(mm)
+  [OK]  PlcPollTimeoutSeconds          <- PLC等待反馈超时(秒)
+  [OK]  InboundRetryMax                <- 入库重试最大次数
+  [OK]  InboundLoopIdleDelayMs         <- 空闲轮询间隔(ms)
+  [OK]  InboundErrorRetryDelayMs       <- 错误重试延迟(ms)
+  [OK]  InboundNoCageRetryDelayMs      <- 无笼位等待间隔(ms)
+  [OK]  InboundPollIntervalMs          <- PLC状态轮询间隔(ms)
+  [OK]  PlcIp                          <- PLC设备IP地址
+  [OK]  PlcPort                        <- PLC端口号
+  [OK]  PlcStation                     <- Modbus站号
+  [OK]  PlcDataFormat                  <- 数据字节序(CDAB/ABCD)
+  [OK]  PlcAddressStartWithZero        <- Modbus地址从0开始
+  [OK]  Addr_GlobalEStop               <- 全局急停信号(1=正常,0=急停)
+  [OK]  Addr_SystemStart               <- 系统启动信号(1=上位机就绪)
+  [OK]  Addr_In_GlassArrived           <- 玻璃到位检测(1=到达)
+  [OK]  Addr_In_GlassLength            <- 测量玻璃长度(mm)
+  [OK]  Addr_In_GlassWidth             <- 测量玻璃宽度(mm)
+  [OK]  Addr_In_TargetCagePos          <- 目标层高坐标(写入PLC)
+  [OK]  Addr_In_PosReached             <- 升降机到位反馈(1=到位)
+  [OK]  Addr_In_EnterCmd               <- 横推入笼指令(1=执行)
+  [OK]  Addr_In_EnterDone              <- 横推完成反馈(1=完成)
+  [OK]  Addr_In_CompareError           <- 比对错误码(2=匹配失败)
+  [OK]  Addr_In_EnterReached           <- 入笼到位反馈(1=到位)
+  [OK]  Addr_CageShiftReq              <- 顺移请求指令
+  [OK]  Addr_CageShiftDone             <- 顺移完成反馈
+  [OK]  Addr_ShiftCmd                  <- 顺移指令(兼容旧版)
+  [OK]  Addr_ShiftDone                 <- 顺移完成(兼容旧版)
+
+=== Final Config Table ===
+Describe                        KeyName                       Value       Address 
+----------------------------------------------------------------------------------
+Addr_CageShiftDone              顺移完成反馈                        1001        1001    
+Addr_CageShiftReq               顺移请求指令                        1000        1000    
+Addr_GlobalEStop                全局急停信号(1=正常,0=急停)             100         100     
+Addr_In_CompareError            比对错误码(2=匹配失败)                 111         111     
+Addr_In_EnterCmd                横推入笼指令(1=执行)                  109         109     
+Addr_In_EnterDone               横推完成反馈(1=完成)                  110         110     
+Addr_In_EnterReached            入笼到位反馈(1=到位)                  112         112     
+Addr_In_GlassArrived            玻璃到位检测(1=到达)                  102         102     
+Addr_In_GlassLength             测量玻璃长度(mm)                    103         103     
+Addr_In_GlassWidth              测量玻璃宽度(mm)                    105         105     
+Addr_In_PosReached              升降机到位反馈(1=到位)                 108         108     
+Addr_In_TargetCagePos           目标层高坐标(写入PLC)                 107         107     
+Addr_ShiftCmd                   顺移指令(兼容旧版)                    1000        1000    
+Addr_ShiftDone                  顺移完成(兼容旧版)                    1001        1001    
+Addr_SystemStart                系统启动信号(1=上位机就绪)               101         101     
+DataSourceType                  数据来源(0=扫码,1=PLC测量)            1           -       
+GlassSpacing                    玻璃安全间距(mm)                    10          -       
+InboundErrorRetryDelayMs        错误重试延迟(ms)                    1000        -       
+InboundLoopIdleDelayMs          空闲轮询间隔(ms)                    200         -       
+InboundNoCageRetryDelayMs       无笼位等待间隔(ms)                   3000        -       
+InboundPollIntervalMs           PLC状态轮询间隔(ms)                 100         -       
+InboundRetryMax                 入库重试最大次数                      3           -       
+MaxScanRetryTimes               最大扫码重试次数                      3           -       
+MeasureErrorAllowance           测量误差容限(mm)                    5           -       
+PlcAddressStartWithZero         Modbus地址从0开始                  true        -       
+PlcDataFormat                   数据字节序(CDAB/ABCD)              CDAB        -       
+PlcIp                           PLC设备IP地址                     192.168.1.10 -       
+PlcPollTimeoutSeconds           PLC等待反馈超时(秒)                  30          -       
+PlcPort                         PLC端口号                        502         -       
+PlcStation                      Modbus站号                      1           -       
+Plc轮询超时秒                        PlcPollTimeoutSeconds         5           0       
+全局停止地址                          Addr_GlobalEStop              100         -       
+对应层高地址                          Addr_In_TargetCagePos         107         -       
+最大入站重试次数                        InboundRetryMax               1           0       
+最大扫描重试次数                        MaxScanRetryTimes             3           0       
+横推完成指令                          Addr_In_EnterDone             110         -       
+横推指令                            Addr_In_EnterCmd              109         -       
+测量方式选择                          DataSourceType                1           -       
+测量玻璃宽度                          Addr_In_GlassWidth            105         -       
+测量玻璃长度                          Addr_In_GlassLength           103         -       
+测量误差容限                          MeasureErrorAllowance         5           0       
+玻璃到位标识                          Addr_In_GlassArrived          102         -       
+玻璃间距                            GlassSpacing                  5           0       
+瞬移完成指令                          Addr_CageShiftDone            4x40011     -       
+移动到位信号                          Addr_In_PosReached            108         -       
+移笼命令                            Addr_ShiftCmd                 1000        -       
+移笼完成                            Addr_ShiftDone                4x40013     -       
+笼内距离K                           CageInnerDistanceK            0.0         0       
+系统开始指令                          Addr_SystemStart              101         -       
+顺移指令                            Addr_CageShiftReq             4x40010     -       

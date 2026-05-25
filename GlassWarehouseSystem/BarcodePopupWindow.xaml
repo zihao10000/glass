@@ -1,0 +1,125 @@
+<Window x:Class="GlassWarehouseSystem.BarcodePopupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="扫码确认"
+        Height="360"
+        Width="420"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#F0F0F0"
+        ShowInTaskbar="False">
+    
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>   <!-- 标题 -->
+            <RowDefinition Height="55"/>     <!-- 输入框 -->
+            <RowDefinition Height="Auto"/>   <!-- 结果标签 -->
+            <RowDefinition Height="70"/>     <!-- 结果显示框 -->
+            <RowDefinition Height="Auto"/>   <!-- 按钮行 -->
+        </Grid.RowDefinitions>
+        
+        <!-- Title  -->
+        <Grid Grid.Row="0" Margin="0,0,0,12">
+            <TextBlock Text="流程卡扫码"
+                       FontWeight="Bold"
+                       FontSize="14"
+                       VerticalAlignment="Center"/>
+            <Image Source="pack://application:,,,/二维码.png"
+                   Width="60"
+                   Height="60"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Top"
+                   RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Grid>
+        
+        <!-- 扫码输入区 -->
+        <Border Grid.Row="1" 
+                Background="White" 
+                BorderBrush="#CCCCCC" 
+                BorderThickness="1" 
+                Padding="10">
+            <TextBox x:Name="txtBarcode"
+                     FontSize="16"
+                     FontFamily="Courier New"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     KeyDown="txtBarcode_KeyDown">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <VisualBrush Stretch="None" AlignmentX="Center">
+                                            <VisualBrush.Visual>
+                                                <TextBlock Text="请扫码或手动输入条码..."
+                                                           Foreground="#AAAAAA"
+                                                           FontSize="13"
+                                                           FontFamily="Microsoft YaHei"/>
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        
+        <!-- 扫码结果显示 -->
+        <TextBlock Grid.Row="2"
+                   Text="扫码结果（确认/清除按钮对此框操作）"
+                   FontSize="11"
+                   Foreground="#555555"
+                   Margin="0,8,0,4"/>
+        <Border Grid.Row="3"
+                Background="#EBF5FB"
+                BorderBrush="#5B9BD5"
+                BorderThickness="1.5"
+                Padding="10">
+            <TextBox x:Name="txtResult"
+                     FontSize="18"
+                     FontFamily="Courier New"
+                     FontWeight="Bold"
+                     Foreground="#1A4E8C"
+                     VerticalContentAlignment="Center"
+                     HorizontalContentAlignment="Center"
+                     BorderThickness="0"
+                     Background="Transparent"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap"/>
+        </Border>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="4" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,15,0,0">
+            <Button x:Name="btnCameraScan"
+                    Content="相机扫码"
+                    Width="80"
+                    Height="30"
+                    Background="#FF8C00"
+                    Foreground="White"
+                    Margin="0,0,10,0"
+                    Click="BtnCameraScan_Click"/>
+            <Button x:Name="btnClear"
+                    Content="清除"
+                    Width="80"
+                    Height="30"
+                    Margin="0,0,10,0"
+                    Click="BtnClear_Click"/>
+            <Button x:Name="btnConfirm"
+                    Content="确认"
+                    Width="80"
+                    Height="30"
+                    Background="#007ACC"
+                    Foreground="White"
+                    Click="BtnConfirm_Click"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>

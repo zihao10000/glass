@@ -1,0 +1,7 @@
+CSC : error CS1705: 标识为“GlassWarehouseSystem, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null”的程序集“GlassWarehouseSystem”所使用的“Microsoft.EntityFrameworkCore, Version=9.0.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60”版本高于所引用的标识为“Microsoft.EntityFrameworkCore, Version=9.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60”的程序集“Microsoft.EntityFrameworkCore” [D:\lnu\lib\glass\GlassWarehouseSystem\GlassWarehouseSystem\TestInboundFlow\TestInboundFlow.csproj]
+
+生成失败。
+    3 个警告
+    1 个错误
+
+已用时间 00:00:00.88

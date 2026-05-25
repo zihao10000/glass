@@ -1,0 +1,11 @@
+<Solution>
+  <Project Path="GlassWarehouseSystem/GlassWarehouseSystem.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="GlassWarehouseSystem/TestInboundFlow/TestInboundFlow.csproj">
+    <Platform Project="x64" />
+  </Project>
+  <Project Path="GlassWarehouseSystem/TestScanner/TestScanner.csproj">
+    <Platform Project="x64" />
+  </Project>
+</Solution>

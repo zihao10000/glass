@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -Command \"Set-Content -Path ''d:/lnu/lib/glass/GlassWarehouseSystem/GlassWarehouseSystem/InboundWindow.xaml.cs'' -Encoding UTF8 -Value ''test''\")",
+      "Bash(powershell -Command \"python --version; dotnet --version\")",
+      "Bash(powershell -File \"d:/lnu/lib/glass/GlassWarehouseSystem/GlassWarehouseSystem/write_cs.ps1\")"
+    ]
+  }
+}

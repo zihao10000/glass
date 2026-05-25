@@ -1,0 +1,3 @@
+﻿-- [已废弃] 此文件已被 about/sync_config_with_code.sql 取代。
+-- Addr_In_ScanOK 的正确地址为 115（Bool 线圈），请执行 sync_config_with_code.sql。
+-- INSERT INTO config (KeyName, `Describe`, `Type`, `Value`, Address, UpdateTime) VALUES ('Addr_In_ScanOK', '入笼-扫码完成信号(WriteBool)', 'Bool', '115', 115, NOW());
