@@ -21,15 +21,16 @@ namespace GlassWarehouseSystem.Data;
 ///   Configs          — 全局配置表（旧版宽表格式）
 ///   ConfigRows       — 全局配置表（新版键值对行格式）
 ///   PLC 地址映射统一由 config 表中的 Addr_* 键值对提供
-/// </summary>
+/// </summary> 
 public class WarehouseDbContext : DbContext
 {
     /// <summary>
     /// MySQL 连接字符串。
     /// 指向本机 3306 端口的 GlassWarehouseDB 数据库。
-    /// 注意：生产部署时应将此值移至 appsettings.json 或环境变量中。
+    /// 注意：生产部署时应将此值移至 appsettings.json 或环境变量中。glasswarehousedb
     /// </summary>
-    public const string ConnectionString = "server=127.0.0.1;port=3306;database=GlassWarehouseDB;user=root;password=123456;";
+    public const string ConnectionString = "server=127.0.0.1;port=3306;database=glasswarehousedb;user=root;password=123456;";
+
 
     // ================== DbSet 属性  每个对应一张 MySQL 表 ==================
 

@@ -1,8 +1,9 @@
+using GlassWarehouseSystem.Services;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using GlassWarehouseSystem.Services;
+using System.Windows;
 
 namespace TestInboundFlow
 {
@@ -10,19 +11,21 @@ namespace TestInboundFlow
     {
         static void Main()
         {
+
+
             Console.WriteLine("==================================================");
             Console.WriteLine("        GlassWarehouseSystem 入库流程步进测试       ");
             Console.WriteLine("==================================================");
 
             try
             {
+                MessageBox.Show("程序成功启动了！准备开始连数据库...");
                 Console.WriteLine("正在连接数据库并加载系统核心配置...");
                 using var conn = new MySqlConnector.MySqlConnection(GlassWarehouseSystem.Data.WarehouseDbContext.ConnectionString);
                 conn.Open();
                 GlassWarehouseSystem.Config.AppConfig.Initialize(conn);
 
-                var plcClient = new GlassWarehouseSystem.Services.PlcClient();
-                var plcService = new GlassWarehouseSystem.Services.PlcService(plcClient);
+                var plcService = new GlassWarehouseSystem.Services.PlcService(GlassWarehouseSystem.Services.PlcClient.Instance);
                 var cageFinder = new GlassWarehouseSystem.Services.CageFinder(new GlassWarehouseSystem.Repositories.CageRepository());
                 var logRepo = new GlassWarehouseSystem.Repositories.LogRepository();
                 var service = new InboundService(plcService, cageFinder, logRepo);
@@ -46,15 +49,18 @@ namespace TestInboundFlow
                     {
                         foreach (var addr in _addressesToWatch)
                         {
-                            try {
+                            try
+                            {
                                 var current = plcService.ReadShort(addr);
-                                if (_lastStates[addr] != current && _lastStates[addr] != -1) {
+                                if (_lastStates[addr] != current && _lastStates[addr] != -1)
+                                {
                                     Console.ForegroundColor = ConsoleColor.Magenta;
                                     Console.WriteLine($"\n[PLC 状态发生改变] >> {addr} 的值从 {_lastStates[addr]} 变成了 {current}");
                                     Console.ResetColor();
                                 }
                                 _lastStates[addr] = current;
-                            } catch { }
+                            }
+                            catch { }
                         }
                         Thread.Sleep(300);
                     }
@@ -70,13 +76,13 @@ namespace TestInboundFlow
                 };
 
                 // 设置单步调试的拦截逻辑：通过终端显示即将发生的动作，但自动放行交由纯 PLC 控制
-                service.StepInterceptor = prompt =>
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine($"\n[系统决策即将下发] {prompt}");
-                    Console.ResetColor();
-                    return true;
-                };
+                //service.StepInterceptor = prompt =>
+                //{
+                //    Console.ForegroundColor = ConsoleColor.Yellow;
+                //    Console.WriteLine($"\n[系统决策即将下发] {prompt}");
+                //    Console.ResetColor();
+                //    return true;
+                //};
 
                 Console.WriteLine("正在启动 InboundService 及其依赖的所有后台线程...");
                 service.Start();
@@ -118,8 +124,57 @@ namespace TestInboundFlow
                 Console.ResetColor();
                 Console.ReadKey();
             }
-            
+
             Console.WriteLine("测试结束。");
         }
     }
 }
+//using System;
+//using System.Windows; // 如果提示找不到 Windows，请看下方提示
+
+//namespace TestInboundFlow
+//{
+//    class Program
+//    {
+//        [STAThread] // 必须加上这一行，告诉系统这是 UI 线程
+//        static void Main(string[] args)
+//        {
+//            Console.WriteLine("== 基座引导成功，正在强行跨境拉起可视化主界面 ==");
+
+//            try
+//            {
+//                // 1. 手动创建 WPF 应用程序实例（不依赖原项目的 App.xaml 校验）
+//                var app = new Application();
+
+//                // 2. 跨境跨项目直接去 new 主窗口
+//                // 注意：由于我们在 Test 项目里，要引入主窗口的名字空间
+//                var inboundWindow = new GlassWarehouseSystem.InboundWindow();
+//                var outboundWindow = new GlassWarehouseSystem.OutboundWindow();
+
+//                // 3. 复制排版逻辑，让他们并排显示
+//                inboundWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+//                outboundWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+//                var workArea = SystemParameters.WorkArea;
+//                inboundWindow.Left = workArea.Left;
+//                inboundWindow.Top = workArea.Top;
+//                outboundWindow.Left = workArea.Left + workArea.Width / 2;
+//                outboundWindow.Top = workArea.Top;
+
+//                // 4. 让它们亮相
+//                inboundWindow.Show();
+//                outboundWindow.Show();
+
+//                // 5. 维持主程序生命周期
+//                app.Run();
+//            }
+//            catch (Exception ex)
+//            {
+//                // 强制使用 Windows 弹窗，哪怕没有控制台也能看到完整的报错堆栈
+//                MessageBox.Show($"强行拉起界面失败！\n\n【详细错误原因】:\n{ex.ToString()}",
+//                                "系统引导失败",
+//                                MessageBoxButton.OK,
+//                                MessageBoxImage.Error);
+//            }
+//        }
+//    }
+//}

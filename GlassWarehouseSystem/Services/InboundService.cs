@@ -92,9 +92,10 @@ public class InboundService
     }
 
 
-    /// <summary>默认构造函数，PLC、笼位查找器和日志仓库。</summary>
+    /// <summary>默认构造函数，PLC、笼位查找器和日志仓库。
+    /// 使用 PlcClient.Instance 单例，确保整个应用共享一条 PLC TCP 连接。</summary>
     public InboundService()
-        : this(new PlcService(new PlcClient()), new CageFinder(new CageRepository()), new LogRepository())
+        : this(new PlcService(PlcClient.Instance), new CageFinder(new CageRepository()), new LogRepository())
     {
     }
 

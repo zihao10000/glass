@@ -1,4 +1,4 @@
-using GlassWarehouseSystem.Data;
+﻿using GlassWarehouseSystem.Data;
 using GlassWarehouseSystem.Models;
 using GlassWarehouseSystem.Services;
 using GlassWarehouseSystem.ViewModels;
@@ -30,6 +30,9 @@ namespace GlassWarehouseSystem
 
         // 核心标识：这是 A 笼
         private string currentCageCode = "A";
+
+        // 加上下面这一行，给电子锁一个存放它的地方：
+        private bool _isLoading = false;
 
         private Cage _currentCage;
         public Cage CurrentCage
@@ -82,22 +85,22 @@ namespace GlassWarehouseSystem
             LayerList = new ObservableCollection<CageLayerViewModel>();
             SelectLayerCommand = new RelayCommand(OnLayerSelected);
 
-            // 1. 竖向排列初始化 120个格子
-            int rows = 10;
-            int cols = 12;
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < cols; j++)
-                {
-                    int layerNo = (j * rows) + i + 1;
-                    LayerList.Add(new CageLayerViewModel
-                    {
-                        LayerNo = layerNo,
-                        CageID = currentCageCode,
-                        IsOccupied = false
-                    });
-                }
-            }
+            //// 1. 竖向排列初始化 120个格子
+            //int rows = 10;
+            //int cols = 12;
+            //for (int i = 0; i < rows; i++)
+            //{
+            //    for (int j = 0; j < cols; j++)
+            //    {
+            //        int layerNo = (j * rows) + i + 1;
+            //        LayerList.Add(new CageLayerViewModel
+            //        {
+            //            LayerNo = layerNo,
+            //            CageID = currentCageCode,
+            //            IsOccupied = false
+            //        });
+            //    }
+            //}
 
             // 2. 启动初始化任务
             Task.Run(() =>
@@ -116,7 +119,7 @@ namespace GlassWarehouseSystem
 
         private void LoadData(bool forceRefresh = false)
         {
-
+            if (_isLoading) return; // 电子锁拦截
             //using (var db = new WarehouseDbContext())
             //{
             //    int layerCount = db.Layers.Count();
@@ -127,7 +130,13 @@ namespace GlassWarehouseSystem
 
             try
             {
+                _isLoading = true; // 上锁
 
+                // =================【核心新增：快照步】=================
+                // 进来第一件事，把当前的全局变量的值，复制给一个局部变量 snapshotCageCode
+                // 这样在本次 LoadData 运行期间，不管外面的全局变量怎么变，这个快照绝对不会变！
+                string snapshotCageCode = this.currentCageCode;
+                // =====================================================
 
                 string cageCode = null; // 在外部声明
 
@@ -137,7 +146,7 @@ namespace GlassWarehouseSystem
                     // 在 cages 表中查找 LocationType 匹配的行
                     // 然后取出该行的 CageID 字段（这里假设你的模型属性名是 CageID）
                         cageCode = db.Cages
-                        .Where(c => c.LocationType == currentCageCode)
+                        .Where(c => c.LocationType == snapshotCageCode)
                         .Select(c => c.CageCode) // 如果模型中字段叫 ID，请改为 .Select(c => c.ID)
                         .FirstOrDefault();
 
@@ -148,8 +157,26 @@ namespace GlassWarehouseSystem
                         cageCode = "NOT_FOUND";
                     }
                 }
-                
+                // 【改动点 2-2】：紧接着查 Layers 表，获取该笼子实际拥有的层（格子）档案
+                List<Layer> allLayersInDb = null;
+                using (var db = new WarehouseDbContext())
+                {
+                    allLayersInDb = db.Layers
+                                      .AsNoTracking()
+                                      .Where(l => l.CageID == cageCode)
+                                      .OrderBy(l => l.LayerNo) // 确保格子按层号顺序排布
+                                      .ToList();
+                }
 
+                if (allLayersInDb == null || allLayersInDb.Count == 0)
+                {
+                    Application.Current.Dispatcher.Invoke(() => LayerList.Clear());
+                    _isLoading = false;
+                    return;
+                }
+                // 【改动点 1-1】：基于数据库实际查出的层数，动态生成 Redis Keys（不再写死 120）
+                var keys = allLayersInDb.Select(l => (StackExchange.Redis.RedisKey)$"CageLayer:{cageCode}:{l.LayerNo}").ToArray();
+                var redisValues = RedisHelper.Db.StringGet(keys);
 
 
 
@@ -173,7 +200,7 @@ namespace GlassWarehouseSystem
                             // 在 Cages 表里寻找 CageCode 等于当前笼子编号（如 "A"）的第一条记录
                             // .AsNoTracking() 是为了只读，不让 EF 跟踪，提高查询速度
                             // .Trim().ToUpper() 是为了防止数据库里有空格或者大小写不一致导致的匹配失败
-                            var cage = db.Cages.AsNoTracking().FirstOrDefault(c => c.CageCode.Trim().ToUpper() == cageCode.ToUpper());
+                            var cage = db.Cages.AsNoTracking().FirstOrDefault(c => c.CageCode != null && cageCode != null && c.CageCode.Trim().ToUpper() == cageCode.ToUpper());
 
                             // 如果找到了(cage != null)，就把它包装成 List 返回
                             // 如果没找到，就返回一个空的 List
@@ -207,61 +234,72 @@ namespace GlassWarehouseSystem
                 //定位”和“存取”内存（Redis）中某一笼、某一层的整行数据
                 // 1. 准备批量 Keys (避免在循环内重复创建)
 
-                var keys = Enumerable.Range(1, 120)
-                                     .Select(i => (StackExchange.Redis.RedisKey)$"CageLayer:{cageCode}:{i}")
-                                     .ToArray();
-
-                // 2. 一次性读取内存中key的每一行一行的数据
-                var redisValues = RedisHelper.Db.StringGet(keys);
+                
                 //Models 文件夹下，有一个专门的类文件叫 Layer.cs ，是List<Layer>的定义
-                List<Layer> allLayersInDb = null;
+               // List<Layer> allLayersInDb = null;
                 List<Material> allMaterialsInDb = null;
                 var tempLayers = new List<CageLayerViewModel>();
                 // 声明一个临时字典，用来装本次数据库查询到的订单信息
                 Dictionary<string, Order> ordersDict = null;
-                for (int i = 0; i < 120; i++)
+               
+                for (int i = 0; i < allLayersInDb.Count; i++)
                 {
-                    int layerNo = i + 1;
+                    var layerEntity = allLayersInDb[i]; // <--- 补上这一行，否则下面会报 layerEntity 不存在
+                    int layerNo = layerEntity.LayerNo ?? 0; // 真实层号
                     CageLayerViewModel vm = null;
 
                     // 3. 直接从刚才拿到的“内存列表”里取数据
                     var redisValue = redisValues[i];
-                    if (redisValue.HasValue)
+                    // 【核心改动 1】：如果是定时器触发 (forceRefresh = false) 且 Redis 有缓存
+                    if (!forceRefresh && redisValue.HasValue)
                     {
+                        // 1. 直接拿缓存用
                         vm = JsonConvert.DeserializeObject<CageLayerViewModel>(redisValue);
+
+                        
                     }
 
-                    // 4. 实时性保障：如果内存没数据，查 SQL
-                    if (vm == null)
+                    // 【核心改动 2】：如果上面没拿到缓存（过期了），或者由于点击按钮被【强制刷新】穿透
+                    if (vm == null || forceRefresh)
                     {    //循环第二层 此时 allLayersInDb 已经不是 null 了，它装满了 A 笼所有层的数据 跳过查数据库。
-                        if (allLayersInDb == null)
+                        if (allMaterialsInDb == null)
                         {
                             using (var db = new WarehouseDbContext())
                             {     //查询数据库中属于特定笼子（如 A 笼）的所有层信息
-                                allLayersInDb = db.Layers.AsNoTracking().Where(l => l.CageID == cageCode).ToList();
+                               // allLayersInDb = db.Layers.AsNoTracking().Where(l => l.CageID == cageCode).ToList();
                                 //这行代码的作用确实是获取当前存放在 A 笼（或指定笼号）中的所有物料信息
-                                allMaterialsInDb = db.Materials.AsNoTracking().Where(m => m.CurrentCage != null && m.CurrentCage.Trim().ToUpper() == currentCageCode).ToList();
+                                allMaterialsInDb = db.Materials.AsNoTracking().Where(m => m.CurrentCage != null && m.CurrentCage.Trim().ToUpper() == snapshotCageCode.Trim().ToUpper()).ToList();
 
                                 // 2. 【新增】一次性取出这批物料对应的所有订单，转成字典备用
                                 var orderIds = allMaterialsInDb.Select(m => m.OrderID).Where(id => id != null).Distinct().ToList();
-                                ordersDict = db.Orders.AsNoTracking()
-                                               .Where(o => orderIds.Contains(o.OrderID))
-                                               .ToDictionary(o => o.OrderID, o => o);
+                                var ordersList = db.Orders.AsNoTracking()
+                   .Where(o => o.OrderID != null && orderIds.Contains(o.OrderID))
+                   .ToList();
+
+                                ordersDict = new Dictionary<string, Order>();
+                                foreach (var o in ordersList)
+                                {
+                                    if (o.OrderID != null && !ordersDict.ContainsKey(o.OrderID))
+                                    {
+                                        ordersDict.Add(o.OrderID, o);
+                                    }
+                                }
                             }
                         }
 
                         //“我是 A 笼 5 层，我现在准备好要显示了。”
                         vm = new CageLayerViewModel { LayerNo = layerNo, CageID = cageCode };
-                        //layerEntity 说：“我找到了数据库里关于 A 笼 5 层的原始档案。”
-                        var layerEntity = allLayersInDb
-                            .FirstOrDefault(l => l.LayerNo == layerNo && l.CageID.Trim().ToUpper() == cageCode);
+                        ////layerEntity 说：“我找到了数据库里关于 A 笼 5 层的原始档案。”
+                        //var layerEntity = allLayersInDb
+                        //    .FirstOrDefault(l => l.LayerNo == layerNo && l.CageID.Trim().ToUpper() == cageCode.Trim().ToUpper());
 
                         //如果在层中能找到信息 笼和层的信息 那我就在物料表中接着找 我要比对
                         if (layerEntity != null)
                         {
-                            var mat = allMaterialsInDb
-                                 .FirstOrDefault(m => m.CurrentLayer == layerNo
-                                                   && m.CurrentCage == currentCageCode);
+                            var mat = allMaterialsInDb .FirstOrDefault(m => m.CurrentLayer != null
+                                && m.CurrentLayer == layerNo
+                                && m.CurrentCage != null
+                                && m.CurrentCage.Trim().ToUpper() == snapshotCageCode.Trim().ToUpper());
                             //MessageBox.Show($"layers: {allLayersInDb.Count}, materials: {allMaterialsInDb.Count}");
                             // --- 核心改动：从字典里拿数据 ---
                             Order currentOrder = null;
@@ -285,7 +323,7 @@ namespace GlassWarehouseSystem
                         }
 
                         // 5. 存回 Redis 并设置 4 秒强制过期，保证实时刷新
-                        _ = RedisHelper.Db.StringSetAsync(keys[i], JsonConvert.SerializeObject(vm), TimeSpan.FromSeconds(7));
+                        _ = RedisHelper.Db.StringSetAsync(keys[i], JsonConvert.SerializeObject(vm), TimeSpan.FromSeconds(5));
                     }
                     tempLayers.Add(vm);
                 }
@@ -293,6 +331,16 @@ namespace GlassWarehouseSystem
                 // 6. 更新 UI
                 Application.Current.Dispatcher.Invoke(() =>
                 {
+                    // === 【新增：如果列表是空的，或者切笼子了，直接重新灌入对应的格子载体】 ===
+                    if (LayerList.Count != tempLayers.Count)
+                    {
+                        LayerList.Clear();
+                        foreach (var item in tempLayers)
+                        {
+                            // 创建一个干净的格子载体放进集合，以便后续动态更新
+                            LayerList.Add(new CageLayerViewModel { LayerNo = item.LayerNo, CageID = item.CageID });
+                        }
+                    }
                     foreach (var newData in tempLayers)
                     {
                         var existing = LayerList.FirstOrDefault(x => x.LayerNo == newData.LayerNo);
@@ -323,7 +371,9 @@ namespace GlassWarehouseSystem
             catch (Exception ex)
             {
                 MessageBox.Show($"加载失败:\n{ex.Message}\n{ex.InnerException?.Message}");
+                
             }
+            finally { _isLoading = false; }
         }
 
         private void OnLayerSelected(object parameter)
@@ -335,27 +385,69 @@ namespace GlassWarehouseSystem
                 SelectedLayer.IsSelected = true;
             }
         }
-        // 点击 A 笼按钮（因为当前就是 A，可以留空或做刷新）
+
+        // 点击 A 笼按钮
         private void SwitchToCageA_Click(object sender, RoutedEventArgs e)
         {
-            // 如果已经在 A 笼，可以不做处理，或者调用 LoadData() 刷新一下
+            if (currentCageCode == "A") return;
+            // ======= 【直接在这里变色】 =======
+            btnCageA.Background = new System.Windows.Media.BrushConverter().ConvertFrom("#4169E1") as System.Windows.Media.Brush; // 变成蓝色
+            btnCageA.Foreground = System.Windows.Media.Brushes.White;
+
+            btnCageB.Background = System.Windows.Media.Brushes.LightGray; // B 恢复默认灰
+            btnCageB.Foreground = System.Windows.Media.Brushes.Black;
+            // =================================
+            // 【安全修复】：先停掉定时器，防止它在切换的骨骨眼上插刀
+            _refreshTimer.Stop();
+
+            // 1. 切换核心标识
+            currentCageCode = "A";
+
+            // 2. 在主线程立刻把旧缓存端掉
+            //CacheQueryService.ClearCacheByPattern("CageLayer:A:*");
+
+            // 3. 异步去强制刷新最新数据
+            Task.Run(() =>
+            {
+                LoadData(true);
+
+                // 加载完了重新把定时器开起来
+                Application.Current.Dispatcher.Invoke(() => _refreshTimer.Start());
+            });
         }
+
+        // 点击 B 笼按钮
         private void SwitchToCageB_Click(object sender, RoutedEventArgs e)
         {
-            //// 假设你也有类似的批量改进在 WindowB 中
-            // CageDashboardWindowB windowB = new CageDashboardWindowB();
-            // windowB.Show();
-            // this.Close();
-            // 1. 核心：在离开 A 笼前，彻底关掉 A 笼的定时器
-           // _refreshTimer?.Stop();
+            if (currentCageCode == "B") return;
+            // ======= 【直接在这里变色】 =======
+            btnCageB.Background = new System.Windows.Media.BrushConverter().ConvertFrom("#4169E1") as System.Windows.Media.Brush; // 变成蓝色
+            btnCageB.Foreground = System.Windows.Media.Brushes.White;
 
-            // 2. 跳转
-            CageDashboardWindowB windowB = new CageDashboardWindowB();
-            windowB.Show();
+            btnCageA.Background = System.Windows.Media.Brushes.LightGray; // A 恢复默认灰
+            btnCageA.Foreground = System.Windows.Media.Brushes.Black;
+            // =================================
+            // 【安全修复】：先停掉定时器
+            _refreshTimer.Stop();
 
-            // 3. 关闭当前窗口
-            this.Close();
+            // 1. 切换核心标识为 B
+            currentCageCode = "B";
+
+            // 2. 在主线程立刻把旧缓存端掉
+            //CacheQueryService.ClearCacheByPattern("CageLayer:B:*");
+
+            // 3. 异步去强制刷新最新数据
+            Task.Run(() =>
+            {
+                LoadData(true);
+
+                // 加载完了重新把定时器开起来
+                Application.Current.Dispatcher.Invoke(() => _refreshTimer.Start());
+            });
         }
+
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)

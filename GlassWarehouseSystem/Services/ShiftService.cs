@@ -14,8 +14,9 @@ public sealed class ShiftService
     private readonly PlcService _plc;
     private readonly LogRepository _logRepository;
 
+    /// <summary>默认构造函数。使用 PlcClient.Instance 单例，确保整个应用共享一条 PLC TCP 连接。</summary>
     public ShiftService()
-        : this(new PlcService(new PlcClient()), new LogRepository())
+        : this(new PlcService(PlcClient.Instance), new LogRepository())
     {
     }
 
@@ -53,6 +54,15 @@ public sealed class ShiftService
             // DB 提交成功后，通知 PLC 执行物理顺移
             _plc.WriteBool("Addr_CageShiftReq", true);
 
+            // 顺移改变了 B 笼物料，清除相关缓存确保出笼任务列表和笼位数据即时刷新
+            CacheQueryService.ClearCacheByKeys(
+                "outbound:materials:instock",
+                "cages:online_with_layers",
+                "plan:materials:all",
+                "plan:materials:pending",
+                "display:cages:all",
+                "display:layers:all");
+
             _logRepository.Insert($"顺移完成 A={aCage.CageCode} -> B={bCage.CageCode} 移动数量={moved}", "信息");
             return ShiftResult.Ok(moved, aCage.CageCode, bCage.CageCode);
         }
@@ -69,8 +79,10 @@ public sealed class ShiftService
         string bCageCode,
         CancellationToken cancellationToken)
     {
+        // A 笼物料检查：不限制 InboundTime，允许 Pending 状态一起顺移（顺移后由 MoveCageDataAsync 统一升级为 InStock）。
+        // 这样顺移按钮同时充当入笼→出笼 间的状态衡接点。
         var aOrders = await context.Materials.AsNoTracking()
-            .Where(m => m.CurrentCage == aCageCode && m.InboundTime != null && m.Status != MaterialStatus.Outbounded)
+            .Where(m => m.CurrentCage == aCageCode && m.Status != MaterialStatus.Outbounded)
             .Select(m => m.OrderID ?? string.Empty)
             .Distinct()
             .ToListAsync(cancellationToken);
@@ -108,13 +120,23 @@ public sealed class ShiftService
         using var context = new WarehouseDbContext();
         using var tx = await context.Database.BeginTransactionAsync(cancellationToken);
 
+        // 顺移范围：A 笼中所有未出库的物料（含 Pending），顺移后一并升级为 InStock。
+        // 顺移按钮以此作为入笼→出笼 的状态提交点，避免 Pending 数据豁在 B 笼中无法入出笼队列。
         var moveMaterials = await context.Materials
-            .Where(m => m.CurrentCage == aCageCode && m.InboundTime != null && m.Status != MaterialStatus.Outbounded)
+            .Where(m => m.CurrentCage == aCageCode && m.Status != MaterialStatus.Outbounded)
             .ToListAsync(cancellationToken);
 
+        var nowTs = DateTime.Now;
         foreach (var m in moveMaterials)
         {
             m.CurrentCage = bCageCode;
+
+            // 状态提升：Pending 或未记录入笼时间的物料补齐为 InStock。
+            // Damaged/Error/Locked 保持原状态不动，文件仅负责物理化身位，不遮盖业务判决。
+            if (m.Status == MaterialStatus.Pending)
+                m.Status = MaterialStatus.InStock;
+            if (m.InboundTime == null)
+                m.InboundTime = nowTs;
         }
 
         var aLayers = await context.Layers.Where(l => l.CageID == aCageCode).ToListAsync(cancellationToken);

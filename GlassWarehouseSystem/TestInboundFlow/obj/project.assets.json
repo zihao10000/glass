@@ -1,7 +1,7 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
-    "net8.0-windows7.0": {
+    "net8.0-windows": {
       "EPPlus/8.4.2": {
         "type": "package",
         "dependencies": {
@@ -1865,26 +1865,26 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net8.0-windows7.0": [
+    "net8.0-windows": [
       "GlassWarehouseSystem >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 9.0.4",
       "Microsoft.EntityFrameworkCore.Relational >= 9.0.4"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\86158\\.nuget\\packages\\": {}
+    "C:\\Users\\acer\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\TestInboundFlow\\TestInboundFlow.csproj",
+      "projectUniqueName": "D:\\桌面\\glass\\GlassWarehouseSystem_合并\\GlassWarehouseSystem_合并\\GlassWarehouseSystem\\TestInboundFlow\\TestInboundFlow.csproj",
       "projectName": "TestInboundFlow",
-      "projectPath": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\TestInboundFlow\\TestInboundFlow.csproj",
-      "packagesPath": "C:\\Users\\86158\\.nuget\\packages\\",
-      "outputPath": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\TestInboundFlow\\obj\\",
+      "projectPath": "D:\\桌面\\glass\\GlassWarehouseSystem_合并\\GlassWarehouseSystem_合并\\GlassWarehouseSystem\\TestInboundFlow\\TestInboundFlow.csproj",
+      "packagesPath": "C:\\Users\\acer\\.nuget\\packages\\",
+      "outputPath": "D:\\桌面\\glass\\GlassWarehouseSystem_合并\\GlassWarehouseSystem_合并\\GlassWarehouseSystem\\TestInboundFlow\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\86158\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1895,11 +1895,12 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net8.0-windows7.0": {
+        "net8.0-windows": {
+          "framework": "net8.0-windows7.0",
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\GlassWarehouseSystem.csproj": {
-              "projectPath": "D:\\Glass\\5.14\\GlassWarehouseSystem\\GlassWarehouseSystem\\GlassWarehouseSystem.csproj"
+            "D:\\桌面\\glass\\GlassWarehouseSystem_合并\\GlassWarehouseSystem_合并\\GlassWarehouseSystem\\GlassWarehouseSystem.csproj": {
+              "projectPath": "D:\\桌面\\glass\\GlassWarehouseSystem_合并\\GlassWarehouseSystem_合并\\GlassWarehouseSystem\\GlassWarehouseSystem.csproj"
             }
           }
         }
@@ -1914,10 +1915,11 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
-      "net8.0-windows7.0": {
+      "net8.0-windows": {
+        "framework": "net8.0-windows7.0",
         "targetAlias": "net8.0-windows",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": {
@@ -1943,19 +1945,19 @@
         "downloadDependencies": [
           {
             "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.23, 8.0.23]"
+            "version": "[8.0.27, 8.0.27]"
           },
           {
             "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[8.0.23, 8.0.23]"
+            "version": "[8.0.27, 8.0.27]"
           },
           {
             "name": "Microsoft.NETCore.App.Ref",
-            "version": "[8.0.23, 8.0.23]"
+            "version": "[8.0.27, 8.0.27]"
           },
           {
             "name": "Microsoft.WindowsDesktop.App.Ref",
-            "version": "[8.0.23, 8.0.23]"
+            "version": "[8.0.27, 8.0.27]"
           }
         ],
         "frameworkReferences": {
@@ -1963,7 +1965,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

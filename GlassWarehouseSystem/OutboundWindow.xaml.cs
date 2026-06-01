@@ -28,7 +28,9 @@ namespace GlassWarehouseSystem
         private readonly ObservableCollection<OrderFilterItem> _orderFilterItems = new();
 
         private readonly OutboundService _outboundService = new();
-        private readonly PlcService _plcService = new(new PlcClient());
+        // PlcClient.Instance 是全应用单例，与 InboundWindow / InboundService / ShiftService 共享同一条 PLC TCP 连接，
+        // 避免入笼→顺移→出笼切换时多连接被 PLC 拒绝。
+        private readonly PlcService _plcService = new(PlcClient.Instance);
         private readonly LogRepository _logRepository = new();
 
         private bool _isOutboundRunning;
@@ -51,7 +53,31 @@ namespace GlassWarehouseSystem
             _outboundService.OnOutboundItemCompleted += OnOutboundItemCompleted;
             _outboundService.OnPrintTrigger += OnPrintTriggerReceived;
 
+            // 与 InboundWindow 一致：将 PlcService 底层 Modbus 读写日志以"PLC"级别转发到界面，
+            // 便于排查 ReadFloat/WriteFloat 等失败时的真实原因（连接断开、地址解析失败等）。
+            // 使用 += （而非 =）加上具名方法，避免覆盖 InboundWindow 在单例 PlcClient 上的订阅，
+            // 同时保证 OnClosed 能准确 -= 取消订阅、避免本窗口关闭后被老日志回调。
+            _plcService.OnLogActivity += OnPlcLog;
+
             AppendLog("INFO", "出笼系统启动完成，等待操作...");
+        }
+
+        /// <summary>
+        /// PlcClient.OnLogActivity 的订阅处理器（具名方法，以便 OnClosed 中 -= 取消订阅）。
+        /// </summary>
+        private void OnPlcLog(string msg) => DispatchToLog("PLC", msg);
+
+        /// <summary>
+        /// 窗口关闭时的清理逻辑：
+        /// 1. 如果出笼服务仍在运行，先发出停止信号；
+        /// 2. 取消对单例 PlcClient 的日志订阅，避免本窗口关闭后仍从 PLC 接收到老日志、
+        ///    造成已销毁控件被访问或内存泄漏。
+        /// </summary>
+        protected override void OnClosed(EventArgs e)
+        {
+            try { _outboundService.Stop(); } catch { }
+            try { _plcService.OnLogActivity -= OnPlcLog; } catch { }
+            base.OnClosed(e);
         }
 
         private void InitializeDatabase()
@@ -67,6 +93,63 @@ namespace GlassWarehouseSystem
                 AppendLog("ERROR", $"数据库初始化失败: {ex.Message}");
             }
         }
+
+
+
+        private void MenuRefresh_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("点击了【刷新】，请在这里调用数据刷新的业务逻辑函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+        }
+
+        private void MenuCageDashboard_Click(object sender, RoutedEventArgs e)
+        {
+            new CageDashboardWindow().Show();
+        }
+
+        private void MenuPlan_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // 弹窗提醒
+
+            //System.Windows.MessageBox.Show("点击了【计划管理】，请在这里连接并调用『PlanWindow（计划管理窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+            // 后续开发参考代码：
+            var QueryWindow = new QueryWindow();
+            QueryWindow.Show();
+        }
+
+        private void MenuOneWay_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("点击了【单向台】，请在这里连接并调用『OneWayWindow（单向台窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+        }
+
+        private void MenuGlassTrace_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("点击了【小片跟踪】，请在这里连接并调用『GlassTraceWindow（小片跟踪窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+        }
+
+        private void MenuGlobal_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("点击了【系统配置】，请在这里连接并调用『GlobalConfigWindow（系统配置窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+        }
+
+        private void MenuIoPort_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("点击了【IO端口】，请在这里连接并调用『IoPortWindow（IO端口监视窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+        }
+
+        private void MenuRegister_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("点击了【注册】，请在这里连接并调用『RegisterWindow（软件注册激活窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+        }
+
+        private void MenuSlice_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            System.Windows.MessageBox.Show("点击了【理片笼/盘片台】，请在这里连接并调用『SliceWindow（理片/盘片管理窗口）』的实例化与显示逻辑！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+        }
+
+
+
+
 
         #region 加载在库物料
 
@@ -123,7 +206,7 @@ namespace GlassWarehouseSystem
 
             int layerNo = m.CurrentLayer ?? 1;
 
-            // 优先使用 Layer.Coord
+            // 优先使用 Layer.Coordinate
             if (layerDict.TryGetValue((m.CurrentCage, layerNo), out var layer) && layer.Coordinate.HasValue)
                 return (float)layer.Coordinate.Value;
 
@@ -137,16 +220,17 @@ namespace GlassWarehouseSystem
         private void LoadTaskItems(List<Material> materials)
         {
             // 一次性预加载所有 Cage 和 Layer
-            Dictionary<string, Cage> cageDict;
-            Dictionary<(string, int), Layer> layerDict;
-            using (var context = new WarehouseDbContext())
-            {
-                cageDict = context.Cages.AsNoTracking()
-                    .ToDictionary(c => c.CageCode, c => c);
-                layerDict = context.Layers.AsNoTracking()
-                    .Where(l => l.CageID != null && l.LayerNo != null)
-                    .ToDictionary(l => (l.CageID!, l.LayerNo!.Value), l => l);
-            }
+            var cageDict = CacheQueryService.GetCachedData<Cage>(
+                "display:cages:all",
+                () => { using var ctx = new WarehouseDbContext(); return ctx.Cages.AsNoTracking().ToList(); },
+                TimeSpan.FromMinutes(5)
+            ).ToDictionary(c => c.CageCode, c => c);
+
+            var layerDict = CacheQueryService.GetCachedData<Layer>(
+                "display:layers:all",
+                () => { using var ctx = new WarehouseDbContext(); return ctx.Layers.AsNoTracking().Where(l => l.CageID != null && l.LayerNo != null).ToList(); },
+                TimeSpan.FromMinutes(5)
+            ).ToDictionary(l => (l.CageID!, l.LayerNo!.Value), l => l);
 
             _allTaskItems.Clear();
             int seq = 1;
@@ -383,13 +467,16 @@ namespace GlassWarehouseSystem
 
                 if (ok)
                 {
-                    item.Status = "完成";
+                    // 出笼成功的物料已归档，直接从任务列表与筛选全量列表移除
                     AddHistory(item.ID, 0f, groupItems.Count > 1 ? "手动连组出笼" : "手动出笼成功");
                     AppendLog("SUCCESS", $"出笼成功并归档: {item.ID}");
+                    _taskItems.Remove(item);
+                    _allTaskItems.RemoveAll(t => t.MaterialID == item.MaterialID);
                     successCount++;
                 }
                 else
                 {
+                    item.Status = "失败";
                     AppendLog("ERROR", $"出笼失败: {item.ID}");
                 }
             }
@@ -505,9 +592,21 @@ namespace GlassWarehouseSystem
                 var item = _taskItems.FirstOrDefault(t => t.MaterialID == materialId);
                 if (item != null)
                 {
-                    item.Status = success ? "完成" : "失败";
-                    dgOutboundTask.Items.Refresh();
-                    AddHistory(item.ID, moveDistance, success ? "出笼成功" : "出笼失败");
+                    if (success)
+                    {
+                        // 出笼成功的物料已归档，直接从任务列表与筛选全量列表移除，
+                        // 历史记录在 AddHistory 中单独保留以便追溯
+                        AddHistory(item.ID, moveDistance, "出笼成功");
+                        _taskItems.Remove(item);
+                        _allTaskItems.RemoveAll(t => t.MaterialID == materialId);
+                    }
+                    else
+                    {
+                        // 失败保留在列表，状态标记为"失败"，操作员可手动处理
+                        item.Status = "失败";
+                        dgOutboundTask.Items.Refresh();
+                        AddHistory(item.ID, moveDistance, "出笼失败");
+                    }
                 }
                 UpdateStatistics();
                 BuildQueueSummary();
@@ -532,9 +631,11 @@ namespace GlassWarehouseSystem
                 try
                 {
                     AppendLog("INFO", $"[打印] 启动打印任务: {material.GlassID}");
+                    var configuredPrinter = GlassWarehouseSystem.Config.AppConfig.GetStringOrDefault("PrinterName", "");
                     PrintWindowDraggable.PrintLabelSilently(
                         material,
-                        msg => AppendLog("INFO", $"[打印] {msg}"));
+                        msg => AppendLog("INFO", $"[打印] {msg}"),
+                        printerName: string.IsNullOrWhiteSpace(configuredPrinter) ? null : configuredPrinter);
                 }
                 catch (Exception ex)
                 {
@@ -570,13 +671,10 @@ namespace GlassWarehouseSystem
 
         private void OpenGlobalParams_Click(object sender, RoutedEventArgs e)
         {
-            AppendLog("INFO", "打开参数设置...");
+            new Quanjvcanshu().Show();
         }
 
-        private void MenuCageDashboard_Click(object sender, RoutedEventArgs e)
-        {
-            AppendLog("INFO", "打开看板...");
-        }
+       
 
         #endregion
 

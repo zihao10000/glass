@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\Glass\5.14\GlassWarehouseSystem\GlassWarehouseSystem\obj\x64\Debug\net8.0-windows\
+D:\桌面\glass\GlassWarehouseSystem_合并\GlassWarehouseSystem_合并\GlassWarehouseSystem\obj\x64\Debug\net8.0-windows\
 GlassWarehouseSystem
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-D:\Glass\5.14\GlassWarehouseSystem\GlassWarehouseSystem\App.xaml
+D:\桌面\glass\GlassWarehouseSystem_合并\GlassWarehouseSystem_合并\GlassWarehouseSystem\App.xaml
 15331618177
 
-65513131937
-2311797962344
+681671431127
+231-553957424
 BarcodePopupWindow.xaml;CageDashboardWindow.xaml;CageDashboardWindowB.xaml;CageLayerManagementWindow.xaml;CanShuGuanLi.xaml;ControlPlcUser1.xaml;InboundWindow.xaml;LicenseWindow.xaml;LogWindow1.xaml;MeasurementPlatformHmiWindow.xaml;OutboundWindow.xaml;PrintWindowDraggable_Improved.xaml;Quanjvcanshu.xaml;QueryWindow.xaml;SystemSettingsWindow.xaml;
 
 False

@@ -1,0 +1,25 @@
+# Visual Studio 临时文件
+obj/
+bin/
+*.user
+*.suo
+*.vspscc
+*.vssscc
+
+# Visual Studio 2015/2017/2019/2022
+.vs/
+*.csproj.user
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Windows 开发文件
+*.log
+*.cache
+
+# 其他
+*.pyc
+__pycache__/
+.env

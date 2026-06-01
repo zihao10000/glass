@@ -33,6 +33,22 @@ public class PlcService
     {
         _client = client;
     }
+    public void ReadBool_Hmi(string realAddres)
+    {
+        _client.ReadBool(realAddres);
+    }
+    public void ReadFloat_Hmi(string realAddres)
+    {
+        _client.ReadFloat(realAddres);
+    }
+    public void Write_Hmi(string realAddress, float value)
+    {
+        _client.WriteFloat(realAddress, value);
+    }
+    public void Write_Hmi(string realAddress, bool value)
+    {
+        _client.WriteBool(realAddress, value);
+    }
 
     public bool ReadBool(string keyName)
         => _client.ReadBool(AppConfig.GetPlcAddress(keyName).RealAddress);
@@ -89,4 +105,5 @@ public class PlcService
     /// </summary>
     public bool WriteFloat(string keyName, float value)
         => _client.WriteFloat(AppConfig.GetPlcAddress(keyName).RealAddress, value);
+
 }

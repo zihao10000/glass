@@ -87,6 +87,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="tubiaoimages\CageScreen.png" />
+    <None Remove="tubiaoimages\Device.png" />
+    <None Remove="tubiaoimages\GlassTrace.png" />
+    <None Remove="tubiaoimages\Global.png" />
+    <None Remove="tubiaoimages\IoPort.png" />
+    <None Remove="tubiaoimages\OneWay.png" />
+    <None Remove="tubiaoimages\Plan.png" />
+    <None Remove="tubiaoimages\Refresh.png" />
+    <None Remove="tubiaoimages\Register.png" />
+    <None Remove="tubiaoimages\Slice.png" />
+    <None Remove="tubiaoimages\SystemSet.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="tubiaoimages\CageScreen.png" />
+    <Resource Include="tubiaoimages\Device.png" />
+    <Resource Include="tubiaoimages\GlassTrace.png" />
+    <Resource Include="tubiaoimages\Global.png" />
+    <Resource Include="tubiaoimages\IoPort.png" />
+    <Resource Include="tubiaoimages\OneWay.png" />
+    <Resource Include="tubiaoimages\Plan.png" />
+    <Resource Include="tubiaoimages\Refresh.png" />
+    <Resource Include="tubiaoimages\Register.png" />
+    <Resource Include="tubiaoimages\Slice.png" />
+    <Resource Include="tubiaoimages\SystemSet.png" />
     <Resource Include="二维码.png" />
   </ItemGroup>
 

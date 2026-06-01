@@ -65,10 +65,10 @@ public partial class InboundWindow : Window
     ///   - 系统启动时写入 Addr_SystemStart=1，通知现场设备上位机已就绪；
     ///   - 系统关闭时写入 Addr_SystemStart=0，通知现场设备上位机已离线；
     ///   - 点击"PLC 复位"按钮时清零指令地址。
-    /// 注意：InboundService 内部也持有独立的 PlcService 实例，两者共享同一 PLC 硬件
-    /// 但各自维护独立的 TCP 连接，互不干扰。
+    /// 注意：PlcClient.Instance 是全应用单例，InboundService、ShiftService、OutboundWindow 均共享同一实例，
+    /// 仅建立一条 PLC TCP 连接，避免多连接被 PLC 拒绝的问题。
     /// </summary>
-    private readonly PlcService _plcService = new PlcService(new PlcClient());
+    private readonly PlcService _plcService = new PlcService(PlcClient.Instance);
 
     /// <summary>
     /// 顺移服务，负责将"A 笼"中的所有玻璃数据迁移到"B 笼"，
@@ -109,6 +109,13 @@ public partial class InboundWindow : Window
         // 初始化 XAML 中定义的所有 UI 控件
         InitializeComponent();
 
+        // 初始化语言服务
+        LanguageService.Initialize();
+        
+        // 应用当前语言设置
+        ApplyLanguage();
+        UpdateLanguageMenuSelection(LanguageService.CurrentLanguage);
+
         // 将数据集合绑定到各 DataGrid
         // 绑定后，后续只需操作集合（Add/Insert/Clear）即可自动驱动 UI 更新，无需手动刷新
         dgPlan.ItemsSource = _planItems;
@@ -127,7 +134,9 @@ public partial class InboundWindow : Window
         _inboundService.OnLogActivity += msg => DispatchToLog("TRACE", msg);
 
         // 将 PlcService 底层 TCP 读写日志以"PLC"级别转发到界面日志文本框
-        _plcService.OnLogActivity += msg => DispatchToLog("PLC", msg);
+        // 使用具名方法订阅，以便 OnClosed 中能准确 -= 取消订阅，
+        // 避免本窗口关闭后仍从单例 PlcClient 接收到老日志（以及内存泄漏）。
+        _plcService.OnLogActivity += OnPlcLog;
 
         // 异常事件：需先切换到 UI 线程（Dispatcher.InvokeAsync）才能操作 ObservableCollection
         _inboundService.OnExceptionRecord += msg => Dispatcher.InvokeAsync(() => AddException(msg));
@@ -275,8 +284,10 @@ public partial class InboundWindow : Window
                 // 不使用 Include，避免 Layer→Material WithMany() 关联导致笛卡尔积重复行
                 var list = ctx.Materials
                     .Where(m => m.Status != MaterialStatus.Outbounded) // 仅隐藏已出库；破损/异常等均保留显示
+                    .AsEnumerable() // <-- 核心：加在这里！意思是先把数据从数据库捞出来
                     .OrderBy(m => m.InboundTime)
                     .ToList();
+
 
                 // 手动批量加载所需 Order，再逐条挂载，不产生多余 JOIN
                 // 用 TryAdd 而非 ToDictionary，防止 Orders 表 OrderID 存在重复行时抛异常
@@ -305,7 +316,8 @@ public partial class InboundWindow : Window
             _planItems.Add(new PlanItemViewModel
             {
                 RowNo = row++,                                    // 界面序号（从1开始）
-                FlowCardNo = m.Order?.FlowCardNo ?? string.Empty, // 所属订单的流程卡号
+                OrderNo = m.Order?.OrderNo ?? string.Empty, // 订单编号
+                OrderName = m.OrderName ?? string.Empty, // 订单名称
                 Length = m.Length,                                 // 玻璃长边尺寸（mm）
                 Width = m.Width,                                   // 玻璃短边尺寸（mm）
                 ID = m.GlassID,                                    // 玻璃唯一编号
@@ -314,28 +326,28 @@ public partial class InboundWindow : Window
                 ClientName = m.Order?.CustomerName ?? string.Empty,// 客户名称
                 MaterialID = m.GlassID,                            // 用于操作时定位记录的 ID
                 Material = m,                                       // 保留完整实体引用，供详情面板使用
-                IsInStock  = m.Status == MaterialStatus.InStock,
-                IsDamaged  = m.Status == MaterialStatus.Damaged || m.IsDamaged == true,
-                IsError    = m.Status == MaterialStatus.Error,
+                IsInStock = m.Status == MaterialStatus.InStock,
+                IsDamaged = m.Status == MaterialStatus.Damaged || m.IsDamaged == true,
+                IsError = m.Status == MaterialStatus.Error,
                 StatusText = m.Status switch
                 {
-                    MaterialStatus.Pending    => "待入库",
-                    MaterialStatus.InStock    => "在库",
-                    MaterialStatus.Locked     => "锁定",
-                    MaterialStatus.Damaged    => "破损",
-                    MaterialStatus.Error      => "异常",
-                    _                         => m.Status.ToString()
+                    MaterialStatus.Pending => "待入库",
+                    MaterialStatus.InStock => "在库",
+                    MaterialStatus.Locked => "锁定",
+                    MaterialStatus.Damaged => "破损",
+                    MaterialStatus.Error => "异常",
+                    _ => m.Status.ToString()
                 }
             });
         }
 
         // 诊断日志：显示各状态数量，帮助核查数据库实际记录分布
-        var pending  = materials.Count(m => m.Status == MaterialStatus.Pending);
-        var inStock  = materials.Count(m => m.Status == MaterialStatus.InStock);
-        var damaged  = materials.Count(m => m.Status == MaterialStatus.Damaged);
-        var locked   = materials.Count(m => m.Status == MaterialStatus.Locked);
-        var error    = materials.Count(m => m.Status == MaterialStatus.Error);
-        var other    = materials.Count - pending - inStock - damaged - locked - error;
+        var pending = materials.Count(m => m.Status == MaterialStatus.Pending);
+        var inStock = materials.Count(m => m.Status == MaterialStatus.InStock);
+        var damaged = materials.Count(m => m.Status == MaterialStatus.Damaged);
+        var locked = materials.Count(m => m.Status == MaterialStatus.Locked);
+        var error = materials.Count(m => m.Status == MaterialStatus.Error);
+        var other = materials.Count - pending - inStock - damaged - locked - error;
         AppendLog("INFO",
             $"计划列表已刷新：共 {materials.Count} 条 " +
             $"（待入库={pending} 在库={inStock} 破损={damaged} 锁定={locked} 异常={error}" +
@@ -376,6 +388,43 @@ public partial class InboundWindow : Window
         Application.Current.Shutdown();
     }
 
+    private void MenuLanguage_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is MenuItem menuItem && menuItem.Tag != null)
+        {
+            string languageCode = menuItem.Tag.ToString()!;
+            
+            // 切换语言
+            LanguageService.SetLanguage(languageCode);
+            
+            // 更新菜单选中状态
+            UpdateLanguageMenuSelection(languageCode);
+            
+            // 刷新界面文本
+            ApplyLanguage();
+        }
+    }
+
+    private void UpdateLanguageMenuSelection(string languageCode)
+    {
+        menuLangChinese.IsChecked = (languageCode == "zh-CN");
+        menuLangEnglish.IsChecked = (languageCode == "en-US");
+        menuLangRussian.IsChecked = (languageCode == "ru-RU");
+    }
+
+    private void ApplyLanguage()
+    {
+        // 更新菜单文本
+        menuSystem.Header = LanguageService.GetMenuSystem();
+        menuConfig.Header = LanguageService.GetMenuConfig();
+        menuPlan.Header = LanguageService.GetMenuPlan();
+        menuReport.Header = LanguageService.GetMenuReport();
+        menuExit.Header = LanguageService.GetMenuExit();
+        
+        // 更新窗口标题
+        this.Title = LanguageService.Get("Window.Inbound");
+    }
+
     /// <summary>
     /// 窗口关闭事件重写（OnClosed）。
     /// 当用户直接点击窗口右上角"X"关闭窗口时触发。
@@ -394,9 +443,20 @@ public partial class InboundWindow : Window
         {
             // 忽略关闭时的所有异常
         }
+
+        // 取消对单例 PlcClient 的日志订阅，避免本窗口关闭后仍被回调、
+        // 造成已销毁控件被访问或内存泄漏。
+        try { _plcService.OnLogActivity -= OnPlcLog; } catch { }
+
         // 调用基类实现，触发 Window.Closed 事件及后续清理
         base.OnClosed(e);
     }
+
+    /// <summary>
+    /// PlcClient.OnLogActivity 的订阅处理器。
+    /// 定义为具名方法（而非 Lambda）是为了能在 OnClosed 中用 -= 准确取消订阅。
+    /// </summary>
+    private void OnPlcLog(string msg) => DispatchToLog("PLC", msg);
 
     /// <summary>
     /// 菜单"全局参数"点击事件处理器。
@@ -410,6 +470,87 @@ public partial class InboundWindow : Window
         // 刷新当前界面显示的配置参数（以防配置文件已被外部修改）
         LoadConfigParams();
     }
+    // =========================================================================
+    // 新增菜单按钮点击事件处理函数
+    // =========================================================================
+
+    private void MenuPlan_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // 弹窗提醒
+
+        //System.Windows.MessageBox.Show("点击了【计划管理】，请在这里连接并调用『PlanWindow（计划管理窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+        // 后续开发参考代码：
+        var QueryWindow = new QueryWindow();
+        QueryWindow.Show();
+    }
+
+    private void MenuOneWay_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // 弹窗提醒
+        System.Windows.MessageBox.Show("点击了【单向台】，请在这里连接并调用『OneWayWindow（单向台窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+        // 后续开发参考代码：
+        // var oneWayWin = new OneWayWindow();
+        // oneWayWin.Show();
+    }
+
+    private void MenuGlassTrace_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // 弹窗提醒
+        System.Windows.MessageBox.Show("点击了【小片跟踪】，请在这里连接并调用『GlassTraceWindow（小片跟踪窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+        // 后续开发参考代码：
+        // var traceWin = new GlassTraceWindow();
+        // traceWin.Show();
+    }
+
+    private void MenuGlobal_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // 弹窗提醒
+        System.Windows.MessageBox.Show("点击了【系统配置】，请在这里连接并调用『GlobalConfigWindow（系统配置窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+        // 后续开发参考代码：
+        // var globalWin = new GlobalConfigWindow();
+        // globalWin.ShowDialog();
+    }
+
+    private void MenuIoPort_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // 弹窗提醒
+        System.Windows.MessageBox.Show("点击了【IO端口】，请在这里连接并调用『IoPortWindow（IO端口监视窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+        // 后续开发参考代码：
+        // var ioWin = new IoPortWindow();
+        // ioWin.Show();
+    }
+
+    private void MenuRegister_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // 弹窗提醒
+        System.Windows.MessageBox.Show("点击了【注册】，请在这里连接并调用『RegisterWindow（软件注册激活窗口）』的实例化与显示函数！", "功能提示", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+
+        // 后续开发参考代码：
+        // var regWin = new RegisterWindow();
+        // regWin.ShowDialog();
+    }
+
+    private void MenuSlice_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        // 弹窗逻辑提示
+        System.Windows.MessageBox.Show(
+            "点击了【理片笼/盘片台】，请在这里连接并调用『SliceWindow（理片/盘片管理窗口）』的实例化与显示逻辑！",
+            "功能提示",
+            System.Windows.MessageBoxButton.OK,
+            System.Windows.MessageBoxImage.Information
+        );
+
+        // 预留实例化参考：
+        // var sliceWin = new SliceWindow();
+        // sliceWin.Show();
+    }
+
+
     private void OpenSystemSettings_Click(object sender, RoutedEventArgs e)
     {
         new SystemSettingsWindow().Show();
@@ -827,14 +968,14 @@ public partial class InboundWindow : Window
         {
             // 无选中行时不更新详情面板（保留上次选中的内容或空白）
             return;
-        }   
+        }
 
         // 更新详情面板各字段
         txtDetailTitle.Text = $"详细信息 ({selected.ID})";
         txtDetailID.Text = $"ID: {selected.ID}";
-        txtDetailFlow.Text = $"流程卡号: {selected.FlowCardNo}";
+        txtDetailFlow.Text = $"订单号: {selected.OrderNo}";
         txtDetailClient.Text = $"客户: {selected.ClientName}";
-        txtDetailOrder.Text = $"订单: {selected.Material?.Order?.OrderNo}";
+        txtDetailOrder.Text = $"订单名称: {selected.OrderName}";
         // 尺寸信息：宽度=短边，长度=长边，保留三位小数显示
         txtDetailSize.Text = $"短边: {selected.Width:F3} 长边: {selected.Length:F3} 厚度: {selected.Material?.Thickness:F3}";
         txtDetailProduct.Text = $"产品名称: {selected.OriginalProduct}";
@@ -1300,8 +1441,11 @@ public class PlanItemViewModel
     /// <summary>界面显示序号，从 1 开始，用于给操作员快速定位行位置。</summary>
     public int RowNo { get; set; }
 
-    /// <summary>所属订单的流程卡号，来源于关联的 Order.FlowCardNo。</summary>
-    public string FlowCardNo { get; set; } = string.Empty;
+    /// <summary>订单编号，来源于关联的 Order.OrderNo。</summary>
+    public string OrderNo { get; set; } = string.Empty;
+
+    /// <summary>订单名称，来源于 Material.OrderName。</summary>
+    public string OrderName { get; set; } = string.Empty;
 
     /// <summary>玻璃长边尺寸，单位：mm，保留三位小数显示。</summary>
     public decimal Length { get; set; }

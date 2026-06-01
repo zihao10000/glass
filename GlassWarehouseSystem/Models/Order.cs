@@ -27,7 +27,9 @@ public class Order
 
     public int? Status { get; set; }
     public DateTime? CreateTime { get; set; }
+    
     public DateTime? DeliveryDate { get; set; }
+    
     public int? TotalCount { get; set; }
 
     public virtual ICollection<Material> Materials { get; set; } = new List<Material>();

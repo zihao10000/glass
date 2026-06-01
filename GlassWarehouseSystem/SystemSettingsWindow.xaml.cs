@@ -284,7 +284,6 @@ public partial class SystemSettingsWindow : Window
 
         if (string.IsNullOrWhiteSpace(plcIp))
             return;
-
         using var context = new WarehouseDbContext();
         var item = context.ConfigRows.FirstOrDefault(c => c.KeyName == "PlcIp");
         if (item == null)

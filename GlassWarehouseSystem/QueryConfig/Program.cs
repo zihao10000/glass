@@ -26,6 +26,9 @@ var required = new List<(string Describe, string Type, string Value, int? Addres
     ("InboundNoCageRetryDelayMs", "Int",    "3000",    null, "无笼位等待间隔(ms)"),
     ("InboundPollIntervalMs",     "Int",    "100",     null, "PLC状态轮询间隔(ms)"),
 
+    // ─── Redis 缓存开关 ───
+    ("EnableRedis",               "Bool",   "0",       null, "启用Redis缓存(0=禁用直连MySQL,1=启用)"),
+
     // ─── 出笼服务轮询参数 ───
     ("OutboundPollIntervalMs",      "Int",    "200",     null, "出笼PLC轮询间隔(ms)"),
     ("OutboundPollTimeoutMs",       "Int",    "60000",   null, "出笼PLC等待超时(ms)"),

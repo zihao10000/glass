@@ -22,9 +22,23 @@ public class PlcClient
 {
     private static readonly object SyncRoot = new();
 
+    /// <summary>
+    /// 全应用共享的 PlcClient 单例。
+    /// 入笼界面、入笼服务、顺移服务、出笼界面、出笼服务全部通过此实例访问 PLC，
+    /// 整个程序对同一台 Modbus TCP 服务器只维持一条物理连接，
+    /// 彻底避免出现多连接竞争导致的"读取失败/连接被拒绝"问题。
+    /// 线程安全由内部 lock(SyncRoot) 保证。
+    /// </summary>
+    public static PlcClient Instance { get; } = new();
+
     private ModbusTcpNet? _modbus;
     private DateTime _lastConnectAttempt = DateTime.MinValue;
 
+    /// <summary>
+    /// 通讯日志回调。底层是 Action&lt;string&gt; 多播委托，
+    /// 调用方应使用 += 订阅、-= 取消订阅；为避免内存泄漏，
+    /// 窗口/服务在关闭/销毁时必须用 -= 取消自己的订阅。
+    /// </summary>
     public Action<string>? OnLogActivity { get; set; }
 
     // 
@@ -35,14 +49,13 @@ public class PlcClient
     {
         lock (SyncRoot)
         {
+            // 读取成功不输出逐条日志，避免 WaitForBool 轮询时刷屏；
+            // 失败时的详细诊断信息由 TryReadFromModbus 内部记录。
             if (TryReadFromModbus(realAddress, address => _modbus!.ReadBool(address), out bool value))
             {
-                OnLogActivity?.Invoke($"读取 [BOOL] {realAddress} 成功: {value}");
                 return value;
             }
-            var msg = $"读取 [BOOL] {realAddress} 失败（连接不可用或通信错误）";
-            OnLogActivity?.Invoke(msg);
-            throw new InvalidOperationException(msg);
+            throw new InvalidOperationException($"读取 [BOOL] {realAddress} 失败");
         }
     }
 
@@ -52,12 +65,9 @@ public class PlcClient
         {
             if (TryReadFromModbus(realAddress, address => _modbus!.ReadInt16(address), out short value))
             {
-                OnLogActivity?.Invoke($"读取 [SHORT] {realAddress} 成功: {value}");
                 return value;
             }
-            var msg = $"读取 [SHORT] {realAddress} 失败（连接不可用或通信错误）";
-            OnLogActivity?.Invoke(msg);
-            throw new InvalidOperationException(msg);
+            throw new InvalidOperationException($"读取 [SHORT] {realAddress} 失败");
         }
     }
 
@@ -69,13 +79,8 @@ public class PlcClient
     {
         lock (SyncRoot)
         {
-            if (TryReadFromModbus(realAddress, address => _modbus!.ReadBool(address), out value))
-            {
-                OnLogActivity?.Invoke($"读取 [BOOL] {realAddress} 成功: {value}");
-                return true;
-            }
-            OnLogActivity?.Invoke($"读取 [BOOL] {realAddress} 失败（连接不可用或通信错误）");
-            return false;
+            // 成功静默；失败日志由 TryReadFromModbus 内部产生。
+            return TryReadFromModbus(realAddress, address => _modbus!.ReadBool(address), out value);
         }
     }
 
@@ -87,13 +92,7 @@ public class PlcClient
     {
         lock (SyncRoot)
         {
-            if (TryReadFromModbus(realAddress, address => _modbus!.ReadInt16(address), out value))
-            {
-                OnLogActivity?.Invoke($"读取 [SHORT] {realAddress} 成功: {value}");
-                return true;
-            }
-            OnLogActivity?.Invoke($"读取 [SHORT] {realAddress} 失败（连接不可用或通信错误）");
-            return false;
+            return TryReadFromModbus(realAddress, address => _modbus!.ReadInt16(address), out value);
         }
     }
 
@@ -104,12 +103,9 @@ public class PlcClient
         {
             if (TryReadFromModbus(realAddress, address => _modbus!.ReadInt32(address), out int value))
             {
-                OnLogActivity?.Invoke($"读取 [INT] {realAddress} 成功: {value}");
                 return value;
             }
-            var msg = $"读取 [INT] {realAddress} 失败（连接不可用或通信错误）";
-            OnLogActivity?.Invoke(msg);
-            throw new InvalidOperationException(msg);
+            throw new InvalidOperationException($"读取 [INT] {realAddress} 失败");
         }
     }
 
@@ -119,12 +115,9 @@ public class PlcClient
         {
             if (TryReadFromModbus(realAddress, address => _modbus!.ReadFloat(address), out float value))
             {
-                OnLogActivity?.Invoke($"读取 [FLOAT] {realAddress} 成功: {value}");
                 return value;
             }
-            var msg = $"读取 [FLOAT] {realAddress} 失败（连接不可用或通信错误）";
-            OnLogActivity?.Invoke(msg);
-            throw new InvalidOperationException(msg);
+            throw new InvalidOperationException($"读取 [FLOAT] {realAddress} 失败");
         }
     }
 
@@ -187,14 +180,22 @@ public class PlcClient
     private bool TryReadFromModbus<T>(string realAddress, Func<string, OperateResult<T>>? readFunc, out T value)
     {
         value = default!;
-        if (readFunc == null || !CanUseModbusAddress(realAddress) || !EnsureConnected())
+        if (readFunc == null || !CanUseModbusAddress(realAddress))
         {
+            OnLogActivity?.Invoke($"读取 {realAddress} 失败（地址非法或读取函数为空）");
+            return false;
+        }
+        if (!EnsureConnected())
+        {
+            OnLogActivity?.Invoke($"读取 {realAddress} 失败（PLC 连接未建立）");
             return false;
         }
 
         var op = readFunc(realAddress);
         if (!op.IsSuccess)
         {
+            // 暴露 HslCommunication 真实错误信息（含 ErrorCode），便于定位"非法数据地址/超时/校验失败"等
+            OnLogActivity?.Invoke($"读取 {realAddress} 失败: ErrorCode={op.ErrorCode}, Msg={op.Message}");
             // 读取失败可能是连接已断开，尝试重置连接以便下次重连
             _modbus?.ConnectClose();
             _modbus = null;
@@ -207,14 +208,21 @@ public class PlcClient
 
     private bool TryWriteToModbus(string realAddress, Func<OperateResult?>? writeFunc)
     {
-        if (writeFunc == null || !CanUseModbusAddress(realAddress) || !EnsureConnected())
+        if (writeFunc == null || !CanUseModbusAddress(realAddress))
         {
+            OnLogActivity?.Invoke($"写入 {realAddress} 失败（地址非法或写入函数为空）");
+            return false;
+        }
+        if (!EnsureConnected())
+        {
+            OnLogActivity?.Invoke($"写入 {realAddress} 失败（PLC 连接未建立）");
             return false;
         }
 
         var op = writeFunc();
         if (op == null || !op.IsSuccess)
         {
+            OnLogActivity?.Invoke($"写入 {realAddress} 失败: ErrorCode={op?.ErrorCode}, Msg={op?.Message}");
             _modbus?.ConnectClose();
             _modbus = null;
             return false;

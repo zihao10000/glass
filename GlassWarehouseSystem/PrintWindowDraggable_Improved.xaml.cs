@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,7 +53,8 @@ namespace GlassWarehouseSystem
         /// </summary>
         /// <param name="material">已归档前缓存的物料对象（含 Order 导航属性）</param>
         /// <param name="log">可选日志回调，由调用方在 UI 线程输出</param>
-        public static void PrintLabelSilently(Material material, Action<string>? log = null)
+        /// <param name="printerName">目标打印机名称；留空或 null 则使用系统默认打印机</param>
+        public static void PrintLabelSilently(Material material, Action<string>? log = null, string? printerName = null)
         {
             var win = new PrintWindowDraggable(material)
             {
@@ -76,10 +78,24 @@ namespace GlassWarehouseSystem
                         return;
                     }
 
-                    // 不调用 ShowDialog → 直接使用系统默认打印机静默打印
                     var printDialog = new PrintDialog();
+
+                    if (!string.IsNullOrWhiteSpace(printerName))
+                    {
+                        try
+                        {
+                            var server = new LocalPrintServer();
+                            printDialog.PrintQueue = server.GetPrintQueue(printerName);
+                            log?.Invoke($"打印机已指定: {printerName}");
+                        }
+                        catch (Exception pex)
+                        {
+                            log?.Invoke($"无法找到打印机 \"{printerName}\": {pex.Message}，回退至默认打印机");
+                        }
+                    }
+
                     printDialog.PrintVisual(canvas, $"玻璃标签 {material.GlassID}");
-                    log?.Invoke($"已发送到默认打印机: {material.GlassID}  {material.Width:F3}×{material.Length:F3}");
+                    log?.Invoke($"已发送到打印机 [{printDialog.PrintQueue?.Name ?? "默认"}]: {material.GlassID}  {material.Width:F3}×{material.Length:F3}");
                 }
                 catch (Exception ex)
                 {

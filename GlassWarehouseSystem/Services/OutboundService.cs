@@ -69,31 +69,37 @@ public class OutboundService
         string sortField = AppConfig.GetStringOrDefault("OutSortField", "Length");
         string sortDir = AppConfig.GetStringOrDefault("OutSortDir", "Desc");
 
-        using var context = new WarehouseDbContext();
+        return await CacheQueryService.GetCachedDataAsync<Material>(
+            "outbound:materials:instock",
+            async () =>
+            {
+                using var context = new WarehouseDbContext();
 
-        // 出笼只从 B 笼出货，先取所有 B 笼编码
-        var bCageCodes = context.Cages
-            .Where(c => c.LocationType != null && c.LocationType.StartsWith("B"))
-            .Select(c => c.CageCode)
-            .ToList();
+                // 出笼只从 B 笼出货，先取所有 B 笼编码
+                var bCageCodes = context.Cages
+                    .Where(c => c.LocationType != null && c.LocationType.StartsWith("B"))
+                    .Select(c => c.CageCode)
+                    .ToList();
 
-        IQueryable<Material> query = context.Materials
-            .Include(m => m.Order)
-            .Where(m => m.Status == MaterialStatus.InStock && bCageCodes.Contains(m.CurrentCage));
+                IQueryable<Material> query = context.Materials
+                    .Include(m => m.Order)
+                    .Where(m => m.Status == MaterialStatus.InStock && bCageCodes.Contains(m.CurrentCage));
 
-        // 按 config 配置排序
-        bool byLength = sortField.Equals("Length", StringComparison.OrdinalIgnoreCase);
-        bool descending = sortDir.Equals("Desc", StringComparison.OrdinalIgnoreCase);
+                bool byLength = sortField.Equals("Length", StringComparison.OrdinalIgnoreCase);
+                bool descending = sortDir.Equals("Desc", StringComparison.OrdinalIgnoreCase);
 
-        query = (byLength, descending) switch
-        {
-            (true, true)   => query.OrderByDescending(m => m.Length).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
-            (true, false)  => query.OrderBy(m => m.Length).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
-            (false, true)  => query.OrderByDescending(m => m.Width).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
-            (false, false)  => query.OrderBy(m => m.Width).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
-        };
+                query = (byLength, descending) switch
+                {
+                    (true, true)   => query.OrderByDescending(m => m.Length).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
+                    (true, false)  => query.OrderBy(m => m.Length).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
+                    (false, true)  => query.OrderByDescending(m => m.Width).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
+                    (false, false) => query.OrderBy(m => m.Width).ThenBy(m => m.CurrentCage).ThenBy(m => m.CurrentLayer),
+                };
 
-        return await query.ToListAsync();
+                return await query.ToListAsync();
+            },
+            TimeSpan.FromMinutes(2)
+        );
     }
 
     //  单片出库：删除物料 + 归档历史 
@@ -123,6 +129,7 @@ public class OutboundService
             Length         = material.Length,
             Width          = material.Width,
             Thickness      = material.Thickness,
+            OriginalStatus = material.Status,
             IsDamaged      = material.IsDamaged,
             CageCode       = material.CurrentCage,
             LayerNo        = material.CurrentLayer,
@@ -130,6 +137,9 @@ public class OutboundService
             InboundTime    = material.InboundTime,
             OutboundTime   = DateTime.Now,
             OrderName      = material.OrderName,
+            OrderNo        = material.Order?.OrderNo,
+            FlowCardNo     = material.Order?.FlowCardNo,
+            CustomerName   = material.Order?.CustomerName,
             GroupID        = material.GroupID
         });
 
@@ -182,6 +192,14 @@ public class OutboundService
         });
 
         await context.SaveChangesAsync();
+
+        // 出库完成后清除相关缓存，确保下次加载到最新数据
+        CacheQueryService.ClearCacheByKeys(
+            "outbound:materials:instock",
+            "plan:materials:all",
+            "display:cages:all",
+            "display:layers:all");
+
         return true;
     }
 
@@ -215,16 +233,22 @@ public class OutboundService
                     Log("[自动出笼] PLC 信号已复位，进入出笼队列处理...");
                     break;
                 }
-                catch
+                catch (Exception ex)
                 {
-                    Log("[自动出笼] 读取 Addr_Out_CurrentPos 失败，等待重试...");
+                    // 暴露真实异常信息，便于排查 PLC 连接 / Modbus 地址解析 / 数据格式等问题
+                    Log($"[自动出笼] 读取 Addr_Out_CurrentPos 失败: {ex.GetType().Name}: {ex.Message}，等待重试...");
                     await Task.Delay(_pollIntervalMs, token);
                 }
+
             }
             if (token.IsCancellationRequested || _stopRequested) return;
 
             // 重排：保证同 GroupID 的物料在执行序列中连续出现，其他排序相对位置不变
+            int countBeforeReorder = pendingItems.Count;
             pendingItems = ReorderForGroups(pendingItems);
+            Log($"[自动出笼] 队列长度: 传入={countBeforeReorder}, 重排后={pendingItems.Count}");
+            for (int idx = 0; idx < pendingItems.Count; idx++)
+                Log($"  待处理[{idx + 1}]: MaterialID={pendingItems[idx].MaterialID}, GroupID={pendingItems[idx].GroupID ?? "(无)"}, TargetPos={pendingItems[idx].TargetPos:F1}");
 
             for (int i = 0; i < pendingItems.Count; i++)
             {
@@ -570,13 +594,15 @@ public class OutboundService
 
         foreach (var item in items)
         {
-            if (!visitedItems.Add(item.MaterialID)) continue;
+            // 注意：这里只判断"是否已加入 result"，不能在此处把 MaterialID 写入 visitedItems，
+            // 否则下面的同组遍历会把当前 item 自身误判为"已访问"而跳过，导致丢件。
+            if (visitedItems.Contains(item.MaterialID)) continue;
 
             if (!string.IsNullOrEmpty(item.GroupID))
             {
                 if (!visitedGroups.Add(item.GroupID)) continue;
 
-                // 把本组所有成员按原顺序一次性追加
+                // 把本组所有成员按原顺序一次性追加（含当前 item 自身）
                 foreach (var member in items.Where(x => x.GroupID == item.GroupID))
                 {
                     if (visitedItems.Add(member.MaterialID))
@@ -585,7 +611,8 @@ public class OutboundService
             }
             else
             {
-                result.Add(item);
+                if (visitedItems.Add(item.MaterialID))
+                    result.Add(item);
             }
         }
 

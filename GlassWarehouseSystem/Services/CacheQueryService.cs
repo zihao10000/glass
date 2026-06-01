@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using GlassWarehouseSystem.Config;
 using Newtonsoft.Json;
 using GlassWarehouseSystem.Services;
 
@@ -16,6 +17,13 @@ namespace GlassWarehouseSystem.Services
     public static class CacheQueryService
     {
         /// <summary>
+        /// 读取 config 表中 EnableRedis 字段（0=禁用Redis直连MySQL，1=启用Redis缓存）。
+        /// AppConfig 未初始化时默认返回 false（安全降级）。
+        /// </summary>
+        private static bool IsRedisEnabled =>
+            AppConfig.IsInitialized && AppConfig.GetStringOrDefault("EnableRedis", "0") == "1";
+
+        /// <summary>
         /// 获取缓存数据的（阻塞同步轮休）版本使用。
         /// </summary>
         /// <typeparam name="T">期望返抵的数据实体的原始类推导泛型对象类型形式（多用于传 List<Material>等集合）</typeparam>
@@ -30,7 +38,7 @@ namespace GlassWarehouseSystem.Services
             TimeSpan? expiry = null,
             bool tryRedisFirst = true)
         {
-            if (tryRedisFirst)
+            if (tryRedisFirst && IsRedisEnabled)
             {
                 // 1. 先从 Redis 读缓存节点
                 var cachedJson = RedisHelper.Db.StringGet(cacheKey);
@@ -54,7 +62,7 @@ namespace GlassWarehouseSystem.Services
             var data = dbQueryFunc();
 
             // 3. 将新鲜获取到珍贵成果拿JSON化装袋后顺道给回放到缓存节点占领位置备用接下来其它使用者查询。
-            if (tryRedisFirst)
+            if (tryRedisFirst && IsRedisEnabled)
             {
                 try
                 {
@@ -80,7 +88,7 @@ namespace GlassWarehouseSystem.Services
             TimeSpan? expiry = null,
             bool tryRedisFirst = true)
         {
-            if (tryRedisFirst)
+            if (tryRedisFirst && IsRedisEnabled)
             {
                 var cachedJson = await RedisHelper.Db.StringGetAsync(cacheKey);
                 
@@ -99,7 +107,7 @@ namespace GlassWarehouseSystem.Services
 
             var data = await dbQueryFunc();
 
-            if (tryRedisFirst)
+            if (tryRedisFirst && IsRedisEnabled)
             {
                 try
                 {
@@ -118,6 +126,7 @@ namespace GlassWarehouseSystem.Services
         /// <summary>直接按精确 key 删除缓存项，比 ClearCacheByPattern 更可靠（不依赖 GetServer().Keys()）。</summary>
         public static void ClearCacheByKeys(params string[] keys)
         {
+            if (!IsRedisEnabled) return;
             try
             {
                 foreach (var key in keys)
@@ -135,6 +144,7 @@ namespace GlassWarehouseSystem.Services
         /// <param name="pattern">符合带通配符在内键寻址串，比如想删除所有计划明细则穿： "plan:materials:*" 会删除以此打头的所有在库缓存项进行重新换血查库。</param>
         public static void ClearCacheByPattern(string pattern)
         {
+            if (!IsRedisEnabled) return;
             try
             {
                 // 使用原厂内建扫描器方法找到该规则所有缓存的标识

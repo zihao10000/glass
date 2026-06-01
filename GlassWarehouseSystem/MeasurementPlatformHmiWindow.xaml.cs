@@ -1,4 +1,13 @@
+using Accessibility;
+using GlassWarehouseSystem.Config;
+using GlassWarehouseSystem.Data;
+using GlassWarehouseSystem.LocalConfig;
+using GlassWarehouseSystem.Services;
+using HslCommunication;
+using HslCommunication.ModBus;
 using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -6,11 +15,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using System.Diagnostics;
-using GlassWarehouseSystem.Data;
-using GlassWarehouseSystem.Services;
-using HslCommunication;
-using HslCommunication.ModBus;
 using HslDataFormat = HslCommunication.Core.DataFormat;
 
 namespace GlassWarehouseSystem;
@@ -20,24 +24,27 @@ namespace GlassWarehouseSystem;
 /// </summary>
 public partial class MeasurementPlatformHmiWindow : Window
 {
-    private const string DefaultPlcIp = "192.168.1.10";
+    private LocalSystemSettings _settings = LocalSystemConfigService.Load();
+
+    private string DefaultPlcIp = "192.168.1.10";
     private const int DefaultPlcPort = 502;
     private const byte DefaultStation = 1;
 
     private static readonly Brush BrushInactive = new SolidColorBrush(Color.FromRgb(0xB0, 0xB0, 0xB0));
     private static readonly Brush BrushActive = new SolidColorBrush(Color.FromRgb(0x4C, 0xAF, 0x50));
 
-    private readonly string _plcIp;
-    private ModbusTcpNet? _modbus;
+    private readonly PlcService _modbus = new PlcService(PlcClient.Instance);
     private readonly DispatcherTimer _clockTimer;
     private readonly DispatcherTimer _pollTimer;
     private string? _activeJogKey;
     private Button? _activeJogButton;
+    /// <summary>
+    /// ///////////////
+    /// </summary>
 
     public MeasurementPlatformHmiWindow()
     {
         InitializeComponent();
-        _plcIp = LoadPlcIpFromConfig();
         _clockTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
         _clockTimer.Tick += (_, _) => RefreshClock();
 
@@ -74,7 +81,7 @@ public partial class MeasurementPlatformHmiWindow : Window
             _clockTimer.Stop();
             _pollTimer.Stop();
             StopJog();
-            DisconnectPlc();
+
         };
     }
 
@@ -186,19 +193,8 @@ public partial class MeasurementPlatformHmiWindow : Window
         if (enable)
         {
             // 按需求：先读一次，再写 1
-            try { _modbus.ReadBool(addr); } catch { /* ignore */ }
+            try { _modbus.ReadBool_Hmi(addr); } catch { /* ignore */ }
 
-            var wr = _modbus.Write(addr, true);
-            if (!wr.IsSuccess)
-                MessageBox.Show("写入手动测试使能失败: " + wr.Message, "错误",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            var wr = _modbus.Write(addr, false);
-            if (!wr.IsSuccess)
-                MessageBox.Show("写入手动测试使能失败: " + wr.Message, "错误",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         RefreshManualControlsEnabled();
@@ -216,7 +212,7 @@ public partial class MeasurementPlatformHmiWindow : Window
             return;
 
         bool enable = ChkMeasureMode.IsChecked == true;
-        _modbus.Write(addr, enable);
+        _modbus.Write_Hmi(addr, enable);
     }
 
     private void RefreshManualControlsEnabled()
@@ -268,82 +264,7 @@ public partial class MeasurementPlatformHmiWindow : Window
         BtnCageB_YOriginSet.IsEnabled = en;
     }
 
-    private void BtnPlcConnect_Click(object sender, RoutedEventArgs e)
-    {
-        if (_modbus != null)
-        {
-            _pollTimer.Stop();
-            DisconnectPlc();
-            RefreshManualControlsEnabled();
-            RefreshZOriginButtonsEnabled();
-            return;
-        }
 
-        try
-        {
-            _modbus = new ModbusTcpNet(_plcIp, DefaultPlcPort, DefaultStation)
-            {
-                AddressStartWithZero = true,
-                DataFormat = HslDataFormat.CDAB
-            };
-
-            OperateResult r = _modbus.ConnectServer();
-            if (r.IsSuccess)
-            {
-                TxtPlcStatus.Text = $"● 已连接 {_plcIp}:{DefaultPlcPort}";
-                TxtPlcStatus.Foreground = Brushes.Green;
-                BtnPlcConnect.Content = "断开连接";
-                _pollTimer.Start();
-            }
-            else
-            {
-                _modbus = null;
-                TxtPlcStatus.Text = "● 连接失败";
-                TxtPlcStatus.Foreground = Brushes.Red;
-                BtnPlcConnect.Content = "连接 PLC";
-                MessageBox.Show(r.Message, "PLC 连接失败", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-        catch (Exception ex)
-        {
-            _modbus = null;
-            TxtPlcStatus.Text = "● 连接异常";
-            TxtPlcStatus.Foreground = Brushes.Red;
-            BtnPlcConnect.Content = "连接 PLC";
-            MessageBox.Show(ex.Message, "PLC 连接异常", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-
-        RefreshManualControlsEnabled();
-        RefreshZOriginButtonsEnabled();
-    }
-
-    private void DisconnectPlc()
-    {
-        StopJog();
-        if (_modbus == null)
-            return;
-        try
-        {
-            _modbus.ConnectClose();
-        }
-        catch
-        {
-            // ignored
-        }
-
-        _modbus = null;
-        TxtPlcStatus.Text = "● 未连接";
-        TxtPlcStatus.Foreground = Brushes.Red;
-        BtnPlcConnect.Content = "连接 PLC";
-    }
-
-    private bool EnsureConnected()
-    {
-        if (_modbus != null)
-            return true;
-        MessageBox.Show("请先点击「连接 PLC」", "提示", MessageBoxButton.OK, MessageBoxImage.Information);
-        return false;
-    }
 
     private string LoadPlcIpFromConfig()
     {
@@ -406,8 +327,7 @@ public partial class MeasurementPlatformHmiWindow : Window
             if (string.IsNullOrEmpty(addr))
                 return;
             var r = _modbus!.ReadFloat(addr);
-            if (r.IsSuccess)
-                target.Text = r.Content.ToString("F2", CultureInfo.InvariantCulture);
+            target.Text = r.ToString("F2", CultureInfo.InvariantCulture);
         }
         catch
         {
@@ -428,13 +348,7 @@ public partial class MeasurementPlatformHmiWindow : Window
             return false;
         }
 
-        var wr = _modbus.Write(addr, value);
-        if (!wr.IsSuccess)
-        {
-            MessageBox.Show($"{actionName}写入失败: {wr.Message}", "错误",
-                MessageBoxButton.OK, MessageBoxImage.Error);
-            return false;
-        }
+        _modbus.Write_Hmi(addr, value);
 
         return true;
     }
@@ -504,77 +418,77 @@ public partial class MeasurementPlatformHmiWindow : Window
     /// 按 config.Type 自动读取并显示（用于调试/测试按键写入是否有效）。
     /// 支持 Bool/Int/Short/Float/Double/String（大小写不敏感）。
     /// </summary>
-    private void TryReadAnyToText(string configKey, TextBox target)
-    {
-        if (_modbus == null)
-            return;
+    //private void TryReadAnyToText(string configKey, TextBox target)
+    //{
+    //    if (_modbus == null)
+    //        return;
 
-        try
-        {
-            var (addr, type) = HmiPlcConfigService.TryGetModbusAddressAndType(configKey);
-            if (string.IsNullOrEmpty(addr))
-                return;
+    //    try
+    //    {
+    //        var (addr, type) = HmiPlcConfigService.TryGetModbusAddressAndType(configKey);
+    //        if (string.IsNullOrEmpty(addr))
+    //            return;
 
-            var t = (type ?? string.Empty).Trim().ToLowerInvariant();
-            switch (t)
-            {
-                case "bool":
-                case "boolean":
-                    {
-                        var r = _modbus.ReadBool(addr);
-                        if (r.IsSuccess)
-                            target.Text = r.Content ? "1" : "0";
-                        break;
-                    }
-                case "short":
-                case "int16":
-                    {
-                        var r = _modbus.ReadInt16(addr);
-                        if (r.IsSuccess)
-                            target.Text = r.Content.ToString(CultureInfo.InvariantCulture);
-                        break;
-                    }
-                case "int":
-                case "int32":
-                    {
-                        var r = _modbus.ReadInt32(addr);
-                        if (r.IsSuccess)
-                            target.Text = r.Content.ToString(CultureInfo.InvariantCulture);
-                        break;
-                    }
-                case "float":
-                case "single":
-                    {
-                        var r = _modbus.ReadFloat(addr);
-                        if (r.IsSuccess)
-                            target.Text = r.Content.ToString("F2", CultureInfo.InvariantCulture);
-                        break;
-                    }
-                case "double":
-                    {
-                        var r = _modbus.ReadDouble(addr);
-                        if (r.IsSuccess)
-                            target.Text = r.Content.ToString("F2", CultureInfo.InvariantCulture);
-                        break;
-                    }
-                case "string":
-                    {
-                        // 这里长度无法从配置得知，调试用给一个保守长度
-                        var r = _modbus.ReadString(addr, 32);
-                        if (r.IsSuccess)
-                            target.Text = r.Content ?? string.Empty;
-                        break;
-                    }
-                default:
-                    // 未知类型：不做读取，避免误读
-                    break;
-            }
-        }
-        catch
-        {
-            // 调试读取失败时保持上次显示
-        }
-    }
+    //        var t = (type ?? string.Empty).Trim().ToLowerInvariant();
+    //        switch (t)
+    //        {
+    //            case "bool":
+    //            case "boolean":
+    //                {
+    //                    var r = _modbus.ReadBool(addr);
+    //                    if (r.IsSuccess)
+    //                        target.Text = r.Content ? "1" : "0";
+    //                    break;
+    //                }
+    //            case "short":
+    //            case "int16":
+    //                {
+    //                    var r = _modbus.ReadInt16(addr);
+    //                    if (r.IsSuccess)
+    //                        target.Text = r.Content.ToString(CultureInfo.InvariantCulture);
+    //                    break;
+    //                }
+    //            case "int":
+    //            case "int32":
+    //                {
+    //                    var r = _modbus.ReadInt32(addr);
+    //                    if (r.IsSuccess)
+    //                        target.Text = r.Content.ToString(CultureInfo.InvariantCulture);
+    //                    break;
+    //                }
+    //            case "float":
+    //            case "single":
+    //                {
+    //                    var r = _modbus.ReadFloat(addr);
+    //                    if (r.IsSuccess)
+    //                        target.Text = r.Content.ToString("F2", CultureInfo.InvariantCulture);
+    //                    break;
+    //                }
+    //            case "double":
+    //                {
+    //                    var r = _modbus.ReadDouble(addr);
+    //                    if (r.IsSuccess)
+    //                        target.Text = r.Content.ToString("F2", CultureInfo.InvariantCulture);
+    //                    break;
+    //                }
+    //            case "string":
+    //                {
+    //                    // 这里长度无法从配置得知，调试用给一个保守长度
+    //                    var r = _modbus.ReadString(addr, 32);
+    //                    if (r.IsSuccess)
+    //                        target.Text = r.Content ?? string.Empty;
+    //                    break;
+    //                }
+    //            default:
+    //                // 未知类型：不做读取，避免误读
+    //                break;
+    //        }
+    //    }
+    //    catch
+    //    {
+    //        // 调试读取失败时保持上次显示
+    //    }
+    //}
 
     private void JogIndependent_PreviewMouseDown(object sender, MouseButtonEventArgs e)
     {
@@ -792,25 +706,12 @@ public partial class MeasurementPlatformHmiWindow : Window
         if (string.IsNullOrEmpty(addr))
             return;
 
-        var wr = _modbus.Write(addr, value);
-        if (Debugger.IsAttached)
-        {
-            try
-            {
-                var rb = _modbus.ReadBool(addr);
-                Debug.WriteLine($"[HMI] WriteBool {configKey} @{addr}={value} ok={wr.IsSuccess}; readback={(rb.IsSuccess ? rb.Content.ToString() : "FAIL")}");
-            }
-            catch
-            {
-                Debug.WriteLine($"[HMI] WriteBool {configKey} @{addr}={value} ok={wr.IsSuccess}; readback=EX");
-            }
-        }
+        _modbus.Write_Hmi(addr, value);
+
     }
 
     private void BtnZOriginSet_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected())
-            return;
         if (ChkZOriginEnable.IsChecked != true)
             return;
 
@@ -822,8 +723,6 @@ public partial class MeasurementPlatformHmiWindow : Window
 
     private void BtnXClearSet_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected())
-            return;
         if (ChkZOriginEnable.IsChecked != true)
             return;
 
@@ -835,15 +734,13 @@ public partial class MeasurementPlatformHmiWindow : Window
             return;
         }
 
-        var wr = _modbus!.Write(addr, 0f);
-        if (!wr.IsSuccess)
-            MessageBox.Show("X 轴位置清零写入失败: " + wr.Message, "错误",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+        _modbus!.Write_Hmi(addr, 0f);
+
     }
 
     private void BtnLnkXExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if ( ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!decimal.TryParse(TxtTargetX.Text.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out var d))
@@ -863,15 +760,13 @@ public partial class MeasurementPlatformHmiWindow : Window
             return;
         }
 
-        var wr = _modbus!.Write(addr, v);
-        if (!wr.IsSuccess)
-            MessageBox.Show("X 轴执行写入失败: " + wr.Message, "错误",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+        _modbus!.Write_Hmi(addr, v);
+
     }
 
     private void BtnLnkZExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if ( ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!decimal.TryParse(TxtTargetZ.Text.Trim(), NumberStyles.Float, CultureInfo.InvariantCulture, out var d))
@@ -891,15 +786,13 @@ public partial class MeasurementPlatformHmiWindow : Window
             return;
         }
 
-        var wr = _modbus!.Write(addr, v);
-        if (!wr.IsSuccess)
-            MessageBox.Show("Z 轴执行写入失败: " + wr.Message, "错误",
-                MessageBoxButton.OK, MessageBoxImage.Error);
+        _modbus!.Write_Hmi(addr, v);
+       
     }
 
     private void BtnOutXExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if (ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!TryParseTargetFloat(TxtOutTargetX, "出片台X轴目标位置", out var value))
@@ -950,7 +843,7 @@ public partial class MeasurementPlatformHmiWindow : Window
     // ---------- A 笼：按钮功能暂定，各自独立事件（勿与 B 笼共用） ----------
     private void BtnCageA_YTargetExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if (ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!TryParseTargetFloat(TxtCageA_YTarget, "A笼目标Y轴位置", out var value))
@@ -961,7 +854,7 @@ public partial class MeasurementPlatformHmiWindow : Window
 
     private void BtnCageA_AisleTargetExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if (ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!TryParseAisleNo(TxtCageA_AisleTarget, "A笼目标巷道号", out var aisleNo))
@@ -1003,7 +896,7 @@ public partial class MeasurementPlatformHmiWindow : Window
 
     private void BtnCageA_XTargetExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if (ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!TryParseTargetFloat(TxtCageA_XTarget, "A笼目标X轴位置", out var value))
@@ -1029,7 +922,7 @@ public partial class MeasurementPlatformHmiWindow : Window
     // ---------- B 笼：按钮功能暂定，各自独立事件（勿与 A 笼共用） ----------
     private void BtnCageB_YTargetExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if (ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!TryParseTargetFloat(TxtCageB_YTarget, "B笼目标Y轴位置", out var value))
@@ -1040,7 +933,7 @@ public partial class MeasurementPlatformHmiWindow : Window
 
     private void BtnCageB_AisleTargetExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if (ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!TryParseAisleNo(TxtCageB_AisleTarget, "B笼目标巷道号", out var aisleNo))
@@ -1082,7 +975,7 @@ public partial class MeasurementPlatformHmiWindow : Window
 
     private void BtnCageB_XTargetExec_Click(object sender, RoutedEventArgs e)
     {
-        if (!EnsureConnected() || ChkManualTestEnable.IsChecked != true)
+        if ( ChkManualTestEnable.IsChecked != true)
             return;
 
         if (!TryParseTargetFloat(TxtCageB_XTarget, "B笼目标X轴位置", out var value))

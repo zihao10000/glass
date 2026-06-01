@@ -214,18 +214,7 @@
                                  IsReadOnly="True" Background="#F8F9FA" BorderBrush="#E2E8F0" TextAlignment="Center" FontWeight="SemiBold" Foreground="#2C3E50"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock x:Name="TxtPlcStatus" Text="● 未连接" VerticalAlignment="Center" Margin="0,0,12,0"
-                                   Foreground="Red" FontSize="13" FontWeight="SemiBold"/>
-                        <Button x:Name="BtnPlcConnect" Content="连接 PLC" Width="96" Height="32" Click="BtnPlcConnect_Click"
-                                Background="White" BorderBrush="#D1D8E0" BorderThickness="1" Cursor="Hand">
-                            <Button.Template>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="4">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
+
                     </StackPanel>
                 </StackPanel>
             </Grid>

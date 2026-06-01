@@ -51,28 +51,145 @@
         </Border>
 
         <!-- 工具栏 -->
-        <Border Grid.Row="1" Background="#F5F5F5">
+        <Border Grid.Row="1" Background="#F5F5F5" BorderThickness="0,0,0,1" BorderBrush="#CCCCCC">
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                <StackPanel Orientation="Horizontal" Margin="10,5">
-                    <Button Style="{StaticResource ToolButtonStyle}" Height="39" Background="#5B9BD5" Foreground="White"
-                            Click="BtnLoadMaterials_Click">
-                        <TextBlock Text="刷新" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
+                <StackPanel Orientation="Horizontal" Margin="2,0" VerticalAlignment="Stretch">
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuRefresh_Click" 
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/Refresh.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="刷新" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
                     </Button>
-                    <Button Style="{StaticResource ToolButtonStyle}" Height="39" Background="#5B9BD5" Foreground="White"
-                            Click="OpenGlobalParams_Click">
-                        <TextBlock Text="参数" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="OpenGlobalParams_Click" 
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/SystemSet.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="参数" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
                     </Button>
-                    <Button Style="{StaticResource ToolButtonStyle}" Height="39" Background="#5B9BD5" Foreground="White"
-                            Click="MenuCageDashboard_Click">
-                        <TextBlock Text="看板" FontSize="10" HorizontalAlignment="Center" Foreground="White"/>
+
+
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuCageDashboard_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/CageScreen.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="笼看板" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
                     </Button>
-                    <Separator Width="1" Background="#CCCCCC" Margin="8,4"/>
-                    <Button Style="{StaticResource ToolButtonStyle}" Height="39" Width="70"
-                            Background="#E07B00" BorderBrush="#C06A00" Foreground="White"
-                            Click="BtnSwitchToInbound_Click">
-                        <TextBlock Text="切换入笼" FontSize="10" HorizontalAlignment="Center"
-                                   Foreground="White" TextWrapping="Wrap" TextAlignment="Center"/>
+
+                    <Separator Width="1" Background="#CCCCCC" Margin="3,4"/>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuPlan_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/Plan.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="计划管理" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
                     </Button>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuOneWay_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/OneWay.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="单向台" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuGlassTrace_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/GlassTrace.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="小片跟踪" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuGlobal_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/Global.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="系统配置" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuIoPort_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/IoPort.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="IO端口" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuRegister_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/Register.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="注册" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
+                    </Button>
+
+                    <Button Style="{StaticResource ToolButtonStyle}" Click="MenuSlice_Click"
+                    Width="65" Height="Auto" VerticalAlignment="Stretch" 
+                    Margin="1,0" BorderThickness="0" Background="Transparent" Padding="0">
+                        <Grid Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="/GlassWarehouseSystem;component/tubiaoimages/Slice.png" Stretch="Uniform" RenderOptions.BitmapScalingMode="HighQuality" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="59"/>
+                            <TextBlock Grid.Row="1" Text="理片笼/盘片台" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,1,0,1"/>
+                        </Grid>
+                    </Button>
+
+                    <Separator Width="1" Background="#CCCCCC" Margin="4,4"/>
                 </StackPanel>
             </ScrollViewer>
         </Border>
@@ -96,8 +213,8 @@
 
                 <!-- 操作按钮行 -->
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,5">
-                    <Button Content="加载B笼物料" Style="{StaticResource ActionButtonStyle}" Click="BtnLoadMaterials_Click"/>
-                    <Button Content="手动出笼" Style="{StaticResource ActionButtonStyle}" Click="BtnManualOutbound_Click"/>
+                    <Button Content="加载B笼物料" Style="{StaticResource ActionButtonStyle}" Click="BtnLoadMaterials_Click" Background="#FF4E90C4"/>
+                    <Button Content="手动出笼" Style="{StaticResource ActionButtonStyle}" Click="BtnManualOutbound_Click" Background="#FFFEB55A"/>
                     <Button Content="导出出笼记录" Style="{StaticResource ActionButtonStyle}" Click="BtnExportOutbound_Click"/>
                     <Button Content="复位设备" Style="{StaticResource ActionButtonStyle}" Click="BtnResetPlc_Click"/>
                     <Separator Width="1" Height="24" Background="#AAAAAA" Margin="8,0"/>

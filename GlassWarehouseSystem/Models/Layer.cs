@@ -38,7 +38,7 @@ public class Layer
     public double? Space { get; set; }
     public bool? IsDamaged { get; set; }
 
-    [NotMapped]
+    
     public decimal? LayerSpacing { get; set; }
 
     public virtual Cage? Cage { get; set; }

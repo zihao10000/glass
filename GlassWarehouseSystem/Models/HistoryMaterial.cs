@@ -29,6 +29,8 @@ public class HistoryMaterial
     public decimal Thickness { get; set; }
     public int? Status { get; set; }
     public bool? IsDamaged { get; set; }
+    public MaterialStatus OriginalStatus { get; set; }
+
 
     [StringLength(20)]
     [Column("CurrentCage")]
@@ -49,7 +51,17 @@ public class HistoryMaterial
 
     [StringLength(200)]
     public string? GroupID { get; set; }
+    /// <summary>订单号（冗余快照，DB暂无此列）</summary>
+    [NotMapped]
+    public string? OrderNo { get; set; }
 
+    /// <summary>流程卡号（冗余快照，DB暂无此列）</summary>
+    [NotMapped]
+    public string? FlowCardNo { get; set; }
     [StringLength(200)]
     public string? ErrorMessage { get; set; }
+    /// <summary>客户名称（冗余快照，DB暂无此列）</summary>
+    [NotMapped]
+    public string? CustomerName { get; set; }
+
 }

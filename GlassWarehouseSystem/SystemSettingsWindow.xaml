@@ -147,7 +147,7 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="PLC配置">
+            <TabItem Header="PLC配置" Visibility="Collapsed">
                 <Grid Margin="0">
                     <Border Style="{StaticResource CardStyle}">
                         <Grid>

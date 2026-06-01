@@ -50,13 +50,38 @@ namespace GlassWarehouseSystem
                     "初始化错误",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
+
+                // 让它把真实的病因写到 D 盘的错误文本里，不再使用会崩溃的 WPF 弹窗
+                System.IO.File.WriteAllText("D:\\运行报错原因.txt", ex.ToString());
+                Environment.Exit(0);
+
                 Shutdown();
                 return;
             }
 
-            // 安全扫清全部险避核验且基础配置备好，正式分配新建第一个承认为主的上位操控视图并启动主视域窗口拉扯应用进行挂靠，交出控棒给 InboundWindow。
-            var mainWindow = new InboundWindow();
-            mainWindow.Show();
+            // 同时启动入笼与出笼两个窗口，左右并排显示，便于操作员同时监控两条流程。
+            // MainWindow 设为入笼窗口，关闭它即触发应用退出；出笼窗口作为附属窗口同步关闭。
+            var inboundWindow = new InboundWindow();
+            var outboundWindow = new OutboundWindow();
+
+            // 设为手动定位以避免被 WindowStartupLocation 默认居中覆盖
+            inboundWindow.WindowStartupLocation  = WindowStartupLocation.Manual;
+            outboundWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+
+            // 按主屏幕工作区左右并排：入笼居左、出笼居右
+            var workArea = SystemParameters.WorkArea;
+            inboundWindow.Left  = workArea.Left;
+            inboundWindow.Top   = workArea.Top;
+            outboundWindow.Left = workArea.Left + workArea.Width / 2;
+            outboundWindow.Top  = workArea.Top;
+
+            MainWindow = inboundWindow;
+            ShutdownMode = ShutdownMode.OnMainWindowClose;
+
+            inboundWindow.Closed += (_, _) => outboundWindow.Close();
+
+            inboundWindow.Show();
+            outboundWindow.Show();
         }
     }
 }
