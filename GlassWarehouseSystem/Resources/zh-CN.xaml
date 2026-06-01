@@ -1,0 +1,146 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- 主菜单 -->
+    <sys:String x:Key="Menu.System">系统 (_X)</sys:String>
+    <sys:String x:Key="Menu.Config">配置 (_S)</sys:String>
+    <sys:String x:Key="Menu.Plan">计划 (_P)</sys:String>
+    <sys:String x:Key="Menu.Report">报表 (_R)</sys:String>
+    <sys:String x:Key="Menu.Language">语言 (_L)</sys:String>
+    <sys:String x:Key="Menu.Exit">退出 (_Q)</sys:String>
+    
+    <!-- 配置子菜单 -->
+    <sys:String x:Key="Menu.ParamSettings">参数设置 (_P)</sys:String>
+    <sys:String x:Key="Menu.SystemSettings">系统设置</sys:String>
+    <sys:String x:Key="Menu.ParamManage">参数管理</sys:String>
+    <sys:String x:Key="Menu.GlobalParam">全局参数</sys:String>
+    <sys:String x:Key="Menu.PLCControl">PLC 控制</sys:String>
+    <sys:String x:Key="Menu.CageLayer">层位管理</sys:String>
+    <sys:String x:Key="Menu.License">授权管理</sys:String>
+    
+    <!-- 计划子菜单 -->
+    <sys:String x:Key="Menu.PrintLabel">打印标签 (_T)</sys:String>
+    
+    <!-- 报表子菜单 -->
+    <sys:String x:Key="Menu.DashboardA">看板 A</sys:String>
+    <sys:String x:Key="Menu.DashboardB">看板 B</sys:String>
+    <sys:String x:Key="Menu.QueryWindow">查询窗口</sys:String>
+    <sys:String x:Key="Menu.LogWindow">日志窗口</sys:String>
+    <sys:String x:Key="Menu.MeasurementPlatform">测量平台</sys:String>
+    
+    <!-- 窗口标题 -->
+    <sys:String x:Key="Window.Inbound">玻璃仓储管理系统 — 入笼</sys:String>
+    <sys:String x:Key="Window.Outbound">玻璃仓储管理系统 — 出笼</sys:String>
+    <sys:String x:Key="Window.SystemSettings">系统配置</sys:String>
+    <sys:String x:Key="Window.License">授权管理</sys:String>
+    <sys:String x:Key="Window.Query">查询窗口</sys:String>
+    <sys:String x:Key="Window.Log">日志窗口</sys:String>
+    <sys:String x:Key="Window.Measurement">测量平台</sys:String>
+    <sys:String x:Key="Window.CageDashboard">笼子看板</sys:String>
+    <sys:String x:Key="Window.CageLayer">层位管理</sys:String>
+    <sys:String x:Key="Window.GlobalParam">全局参数</sys:String>
+    <sys:String x:Key="Window.PLCControl">PLC 控制</sys:String>
+    <sys:String x:Key="Window.Print">打印标签</sys:String>
+    
+    <!-- 通用按钮 -->
+    <sys:String x:Key="Btn.Confirm">确认</sys:String>
+    <sys:String x:Key="Btn.Cancel">取消</sys:String>
+    <sys:String x:Key="Btn.Refresh">刷新</sys:String>
+    <sys:String x:Key="Btn.Add">增加</sys:String>
+    <sys:String x:Key="Btn.Delete">删除</sys:String>
+    <sys:String x:Key="Btn.Save">保存</sys:String>
+    <sys:String x:Key="Btn.Close">关闭</sys:String>
+    <sys:String x:Key="Btn.Exit">退出</sys:String>
+    <sys:String x:Key="Btn.Start">启动</sys:String>
+    <sys:String x:Key="Btn.Stop">停止</sys:String>
+    <sys:String x:Key="Btn.Import">导入</sys:String>
+    <sys:String x:Key="Btn.Export">导出</sys:String>
+    <sys:String x:Key="Btn.Search">搜索</sys:String>
+    <sys:String x:Key="Btn.Reset">复位</sys:String>
+    <sys:String x:Key="Btn.Print">打印</sys:String>
+    <sys:String x:Key="Btn.Manual">手动</sys:String>
+    <sys:String x:Key="Btn.Auto">自动</sys:String>
+    
+    <!-- 入笼窗口 -->
+    <sys:String x:Key="Inbound.ImportExcel">导入 Excel</sys:String>
+    <sys:String x:Key="Inbound.PrintLabel">打印标签</sys:String>
+    <sys:String x:Key="Inbound.ViewCage">查看笼</sys:String>
+    <sys:String x:Key="Inbound.ExportSummary">导出理片汇总</sys:String>
+    <sys:String x:Key="Inbound.ExportMissing">导出待补片</sys:String>
+    <sys:String x:Key="Inbound.ScanFlowCard">流程卡扫码</sys:String>
+    <sys:String x:Key="Inbound.MarkDamaged">标记破损</sys:String>
+    <sys:String x:Key="Inbound.ManualReport">手动报工</sys:String>
+    <sys:String x:Key="Inbound.ShiftAB">顺移 A→B</sys:String>
+    <sys:String x:Key="Inbound.ManualInstock">手动确认入库</sys:String>
+    <sys:String x:Key="Inbound.DetailedInfo">详细信息</sys:String>
+    <sys:String x:Key="Inbound.ExceptionRecords">异常数据</sys:String>
+    <sys:String x:Key="Inbound.CompareRecords">比对记录</sys:String>
+    <sys:String x:Key="Inbound.RunLog">运行日志</sys:String>
+    <sys:String x:Key="Inbound.ParamSettings">参数设置</sys:String>
+    <sys:String x:Key="Inbound.StartService">启动服务</sys:String>
+    <sys:String x:Key="Inbound.StopService">停止服务</sys:String>
+    
+    <!-- 工具栏 -->
+    <sys:String x:Key="Toolbar.Refresh">刷新</sys:String>
+    <sys:String x:Key="Toolbar.Param">参数</sys:String>
+    <sys:String x:Key="Toolbar.PrintLabel">打印标签</sys:String>
+    <sys:String x:Key="Toolbar.CageScreen">笼看板</sys:String>
+    <sys:String x:Key="Toolbar.PlanManage">计划管理</sys:String>
+    <sys:String x:Key="Toolbar.OneWay">单向台</sys:String>
+    <sys:String x:Key="Toolbar.GlassTrace">小片跟踪</sys:String>
+    <sys:String x:Key="Toolbar.SystemSet">系统配置</sys:String>
+    <sys:String x:Key="Toolbar.IoPort">IO 端口</sys:String>
+    <sys:String x:Key="Toolbar.Register">注册</sys:String>
+    <sys:String x:Key="Toolbar.Slice">理片笼/盘片台</sys:String>
+    <sys:String x:Key="Toolbar.GlobalParam">全局参数</sys:String>
+    <sys:String x:Key="Toolbar.Logout">注销</sys:String>
+    <sys:String x:Key="Toolbar.RefreshPlan">刷新计划</sys:String>
+    <sys:String x:Key="Toolbar.ManualInstock">手动入库</sys:String>
+    <sys:String x:Key="Toolbar.ICCard">IC 卡</sys:String>
+    <sys:String x:Key="Toolbar.FlowCard">流程卡</sys:String>
+    
+    <!-- DataGrid 列头 -->
+    <sys:String x:Key="Col.ID">行号</sys:String>
+    <sys:String x:Key="Col.Status">状态</sys:String>
+    <sys:String x:Key="Col.OrderNo">订单号</sys:String>
+    <sys:String x:Key="Col.OrderName">订单名称</sys:String>
+    <sys:String x:Key="Col.Length">长边 (mm)</sys:String>
+    <sys:String x:Key="Col.Width">短边 (mm)</sys:String>
+    <sys:String x:Key="Col.GlassID">GlassID</sys:String>
+    <sys:String x:Key="Col.ProductName">产品名称</sys:String>
+    <sys:String x:Key="Col.Customer">客户名称</sys:String>
+    <sys:String x:Key="Col.Time">时间</sys:String>
+    <sys:String x:Key="Col.Message">内容</sys:String>
+    <sys:String x:Key="Col.Result">结果</sys:String>
+    <sys:String x:Key="Inbound.CCDData">CCD 数据</sys:String>
+    
+    <!-- 状态文本 -->
+    <sys:String x:Key="Status.Running">运行中</sys:String>
+    <sys:String x:Key="Status.Stopped">已停止</sys:String>
+    <sys:String x:Key="Status.Waiting">等待中</sys:String>
+    <sys:String x:Key="Status.InStock">待入库</sys:String>
+    <sys:String x:Key="Status.InStocked">在库</sys:String>
+    <sys:String x:Key="Status.Damaged">破损</sys:String>
+    <sys:String x:Key="Status.Error">异常</sys:String>
+    
+    <!-- 参数标签 -->
+    <sys:String x:Key="Param.SortMethod">测量误差</sys:String>
+    <sys:String x:Key="Param.GapSize">安全间距</sys:String>
+    <sys:String x:Key="Param.DataSource">数据来源</sys:String>
+    <sys:String x:Key="Param.ScanRetry">扫码重试</sys:String>
+    
+    <!-- 消息提示 -->
+    <sys:String x:Key="Msg.ConfirmExit">确认退出？</sys:String>
+    <sys:String x:Key="Msg.ConfirmDelete">确认删除？</sys:String>
+    <sys:String x:Key="Msg.SaveSuccess">保存成功</sys:String>
+    <sys:String x:Key="Msg.SaveFailed">保存失败</sys:String>
+    <sys:String x:Key="Msg.LoadSuccess">加载成功</sys:String>
+    <sys:String x:Key="Msg.LoadFailed">加载失败</sys:String>
+    <sys:String x:Key="Msg.NoData">暂无数据</sys:String>
+    <sys:String x:Key="Msg.Processing">处理中...</sys:String>
+    <sys:String x:Key="Msg.Completed">已完成</sys:String>
+    <sys:String x:Key="Msg.Failed">失败</sys:String>
+    <sys:String x:Key="Msg.Success">成功</sys:String>
+    
+</ResourceDictionary>

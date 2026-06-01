@@ -1,0 +1,141 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Main Menu -->
+    <sys:String x:Key="Menu.System">System (_X)</sys:String>
+    <sys:String x:Key="Menu.Config">Config (_S)</sys:String>
+    <sys:String x:Key="Menu.Plan">Plan (_P)</sys:String>
+    <sys:String x:Key="Menu.Report">Report (_R)</sys:String>
+    <sys:String x:Key="Menu.Language">Language (_L)</sys:String>
+    <sys:String x:Key="Menu.Exit">Exit (_Q)</sys:String>
+    
+    <!-- Config Submenu -->
+    <sys:String x:Key="Menu.ParamSettings">Param Settings (_P)</sys:String>
+    <sys:String x:Key="Menu.SystemSettings">System Settings</sys:String>
+    <sys:String x:Key="Menu.ParamManage">Param Management</sys:String>
+    <sys:String x:Key="Menu.GlobalParam">Global Parameters</sys:String>
+    <sys:String x:Key="Menu.PLCControl">PLC Control</sys:String>
+    <sys:String x:Key="Menu.CageLayer">Cage Layer</sys:String>
+    <sys:String x:Key="Menu.License">License</sys:String>
+    
+    <!-- Plan Submenu -->
+    <sys:String x:Key="Menu.PrintLabel">Print Label (_T)</sys:String>
+    
+    <!-- Report Submenu -->
+    <sys:String x:Key="Menu.DashboardA">Dashboard A</sys:String>
+    <sys:String x:Key="Menu.DashboardB">Dashboard B</sys:String>
+    <sys:String x:Key="Menu.QueryWindow">Query Window</sys:String>
+    <sys:String x:Key="Menu.LogWindow">Log Window</sys:String>
+    <sys:String x:Key="Menu.MeasurementPlatform">Measurement Platform</sys:String>
+    
+    <!-- Window Titles -->
+    <sys:String x:Key="Window.Inbound">Glass Warehouse System — Inbound</sys:String>
+    <sys:String x:Key="Window.Outbound">Glass Warehouse System — Outbound</sys:String>
+    <sys:String x:Key="Window.SystemSettings">System Configuration</sys:String>
+    <sys:String x:Key="Window.License">License Management</sys:String>
+    <sys:String x:Key="Window.Query">Query Window</sys:String>
+    <sys:String x:Key="Window.Log">Log Window</sys:String>
+    <sys:String x:Key="Window.Measurement">Measurement Platform</sys:String>
+    <sys:String x:Key="Window.CageDashboard">Cage Dashboard</sys:String>
+    <sys:String x:Key="Window.CageLayer">Cage Layer</sys:String>
+    <sys:String x:Key="Window.GlobalParam">Global Parameters</sys:String>
+    <sys:String x:Key="Window.PLCControl">PLC Control</sys:String>
+    <sys:String x:Key="Window.Print">Print Label</sys:String>
+    
+    <!-- Common Buttons -->
+    <sys:String x:Key="Btn.Confirm">Confirm</sys:String>
+    <sys:String x:Key="Btn.Cancel">Cancel</sys:String>
+    <sys:String x:Key="Btn.Refresh">Refresh</sys:String>
+    <sys:String x:Key="Btn.Add">Add</sys:String>
+    <sys:String x:Key="Btn.Delete">Delete</sys:String>
+    <sys:String x:Key="Btn.Save">Save</sys:String>
+    <sys:String x:Key="Btn.Close">Close</sys:String>
+    <sys:String x:Key="Btn.Exit">Exit</sys:String>
+    <sys:String x:Key="Btn.Start">Start</sys:String>
+    <sys:String x:Key="Btn.Stop">Stop</sys:String>
+    <sys:String x:Key="Btn.Import">Import</sys:String>
+    <sys:String x:Key="Btn.Export">Export</sys:String>
+    <sys:String x:Key="Btn.Search">Search</sys:String>
+    <sys:String x:Key="Btn.Reset">Reset</sys:String>
+    <sys:String x:Key="Btn.Print">Print</sys:String>
+    <sys:String x:Key="Btn.Manual">Manual</sys:String>
+    <sys:String x:Key="Btn.Auto">Auto</sys:String>
+    
+    <!-- Inbound Window -->
+    <sys:String x:Key="Inbound.ImportExcel">Import Excel</sys:String>
+    <sys:String x:Key="Inbound.PrintLabel">Print Label</sys:String>
+    <sys:String x:Key="Inbound.ViewCage">View Cage</sys:String>
+    <sys:String x:Key="Inbound.ExportSummary">Export Summary</sys:String>
+    <sys:String x:Key="Inbound.ExportMissing">Export Missing</sys:String>
+    <sys:String x:Key="Inbound.ScanFlowCard">Scan Flow Card</sys:String>
+    <sys:String x:Key="Inbound.MarkDamaged">Mark Damaged</sys:String>
+    <sys:String x:Key="Inbound.ManualReport">Manual Report</sys:String>
+    <sys:String x:Key="Inbound.ShiftAB">Shift A→B</sys:String>
+    <sys:String x:Key="Inbound.ManualInstock">Manual Instock</sys:String>
+    <sys:String x:Key="Inbound.DetailedInfo">Detailed Info</sys:String>
+    <sys:String x:Key="Inbound.ExceptionRecords">Exception Records</sys:String>
+    <sys:String x:Key="Inbound.CompareRecords">Compare Records</sys:String>
+    <sys:String x:Key="Inbound.RunLog">Run Log</sys:String>
+    <sys:String x:Key="Inbound.ParamSettings">Parameter Settings</sys:String>
+    <sys:String x:Key="Inbound.StartService">Start Service</sys:String>
+    <sys:String x:Key="Inbound.StopService">Stop Service</sys:String>
+    
+    <!-- Toolbar -->
+    <sys:String x:Key="Toolbar.Refresh">Refresh</sys:String>
+    <sys:String x:Key="Toolbar.Param">Param</sys:String>
+    <sys:String x:Key="Toolbar.PrintLabel">Print Label</sys:String>
+    <sys:String x:Key="Toolbar.CageScreen">Cage Screen</sys:String>
+    <sys:String x:Key="Toolbar.PlanManage">Plan Manage</sys:String>
+    <sys:String x:Key="Toolbar.GlobalParam">Global Param</sys:String>
+    <sys:String x:Key="Toolbar.SystemSet">System Set</sys:String>
+    <sys:String x:Key="Toolbar.Logout">Logout</sys:String>
+    <sys:String x:Key="Toolbar.RefreshPlan">Refresh Plan</sys:String>
+    <sys:String x:Key="Toolbar.ManualInstock">Manual Instock</sys:String>
+    <sys:String x:Key="Toolbar.ICCard">IC Card</sys:String>
+    <sys:String x:Key="Toolbar.FlowCard">Flow Card</sys:String>
+    
+    <!-- DataGrid Columns -->
+    <sys:String x:Key="Col.ID">ID</sys:String>
+    <sys:String x:Key="Col.Status">Status</sys:String>
+    <sys:String x:Key="Col.OrderNo">Order No</sys:String>
+    <sys:String x:Key="Col.OrderName">Order Name</sys:String>
+    <sys:String x:Key="Col.Length">Length (mm)</sys:String>
+    <sys:String x:Key="Col.Width">Width (mm)</sys:String>
+    <sys:String x:Key="Col.GlassID">Glass ID</sys:String>
+    <sys:String x:Key="Col.ProductName">Product Name</sys:String>
+    <sys:String x:Key="Col.Customer">Customer</sys:String>
+    <sys:String x:Key="Col.Time">Time</sys:String>
+    <sys:String x:Key="Col.Message">Message</sys:String>
+    <sys:String x:Key="Col.Result">Result</sys:String>
+    <sys:String x:Key="Inbound.CCDData">CCD Data</sys:String>
+    
+    <!-- Status -->
+    <sys:String x:Key="Status.Running">Running</sys:String>
+    <sys:String x:Key="Status.Stopped">Stopped</sys:String>
+    <sys:String x:Key="Status.Waiting">Waiting</sys:String>
+    <sys:String x:Key="Status.InStock">In Stock</sys:String>
+    <sys:String x:Key="Status.InStocked">Stocked</sys:String>
+    <sys:String x:Key="Status.Damaged">Damaged</sys:String>
+    <sys:String x:Key="Status.Error">Error</sys:String>
+    
+    <!-- Parameters -->
+    <sys:String x:Key="Param.SortMethod">Sort Method</sys:String>
+    <sys:String x:Key="Param.GapSize">Gap Size</sys:String>
+    <sys:String x:Key="Param.DataSource">Data Source</sys:String>
+    <sys:String x:Key="Param.ScanRetry">Scan Retry</sys:String>
+    
+    <!-- Messages -->
+    <sys:String x:Key="Msg.ConfirmExit">Confirm Exit?</sys:String>
+    <sys:String x:Key="Msg.ConfirmDelete">Confirm Delete?</sys:String>
+    <sys:String x:Key="Msg.SaveSuccess">Save Success</sys:String>
+    <sys:String x:Key="Msg.SaveFailed">Save Failed</sys:String>
+    <sys:String x:Key="Msg.LoadSuccess">Load Success</sys:String>
+    <sys:String x:Key="Msg.LoadFailed">Load Failed</sys:String>
+    <sys:String x:Key="Msg.NoData">No Data</sys:String>
+    <sys:String x:Key="Msg.Processing">Processing...</sys:String>
+    <sys:String x:Key="Msg.Completed">Completed</sys:String>
+    <sys:String x:Key="Msg.Failed">Failed</sys:String>
+    <sys:String x:Key="Msg.Success">Success</sys:String>
+    
+</ResourceDictionary>

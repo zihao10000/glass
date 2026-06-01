@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\桌面\glass\GlassWarehouseSystem_合并\GlassWarehouseSystem_合并\GlassWarehouseSystem\App.xaml
-15331618177
+18-1826491196
 
 681671431127
 231-553957424
-BarcodePopupWindow.xaml;CageDashboardWindow.xaml;CageDashboardWindowB.xaml;CageLayerManagementWindow.xaml;CanShuGuanLi.xaml;ControlPlcUser1.xaml;InboundWindow.xaml;LicenseWindow.xaml;LogWindow1.xaml;MeasurementPlatformHmiWindow.xaml;OutboundWindow.xaml;PrintWindowDraggable_Improved.xaml;Quanjvcanshu.xaml;QueryWindow.xaml;SystemSettingsWindow.xaml;
+BarcodePopupWindow.xaml;CageDashboardWindow.xaml;CageDashboardWindowB.xaml;CageLayerManagementWindow.xaml;CanShuGuanLi.xaml;ControlPlcUser1.xaml;InboundWindow.xaml;LicenseWindow.xaml;LogWindow1.xaml;MeasurementPlatformHmiWindow.xaml;OutboundWindow.xaml;PrintWindowDraggable_Improved.xaml;Quanjvcanshu.xaml;QueryWindow.xaml;Resources\en-US.xaml;Resources\ru-RU.xaml;Resources\zh-CN.xaml;SystemSettingsWindow.xaml;
 
 False
 

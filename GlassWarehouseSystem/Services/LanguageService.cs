@@ -6,28 +6,62 @@ using GlassWarehouseSystem.Models;
 
 namespace GlassWarehouseSystem.Services
 {
+    /// <summary>
+    /// 多语言服务类
+    /// 提供应用程序的国际化（i18n）支持，管理中文、英文、俄文三种语言
+    /// 使用 WPF 资源字典实现动态语言切换
+    /// </summary>
     public static class LanguageService
     {
+        /// <summary>
+        /// 线程同步锁，确保多语言切换的线程安全性
+        /// </summary>
         private static readonly object SyncRoot = new();
+        
+        /// <summary>
+        /// 当前选中的语言代码，默认为简体中文
+        /// </summary>
         private static string _currentLanguage = "zh-CN";
+        
+        /// <summary>
+        /// 语言资源字典（用于兼容旧的代码方式）
+        /// 结构：语言代码 -> (翻译键 -> 翻译值)
+        /// </summary>
         private static Dictionary<string, Dictionary<string, string>> _languageResources = new();
 
+        /// <summary>
+        /// 语言切换事件
+        /// 当语言改变时触发，用于通知 UI 更新
+        /// </summary>
         public static event EventHandler? LanguageChanged;
 
+        /// <summary>
+        /// 获取支持的语言列表
+        /// </summary>
         public static List<LanguageInfo> SupportedLanguages => new()
         {
             new LanguageInfo { Code = "zh-CN", Name = "中文", Flag = "🇨🇳" },
             new LanguageInfo { Code = "en-US", Name = "English", Flag = "🇺🇸" },
-            new LanguageInfo { Code = "ru-RU", Name = "Русский", Flag = "🇷🇺" }
+            new LanguageInfo { Code = "ru-RU", Name = "Русский", Flag = "🇺" }
         };
 
+        /// <summary>
+        /// 获取当前语言代码
+        /// </summary>
         public static string CurrentLanguage => _currentLanguage;
 
+        /// <summary>
+        /// 初始化语言服务
+        /// 加载所有语言资源
+        /// </summary>
         public static void Initialize()
         {
             LoadLanguageResources();
         }
 
+        /// <summary>
+        /// 加载语言资源（用于兼容旧的代码方式）
+        /// </summary>
         private static void LoadLanguageResources()
         {
             _languageResources = new Dictionary<string, Dictionary<string, string>>
@@ -488,9 +522,35 @@ namespace GlassWarehouseSystem.Services
                 Thread.CurrentThread.CurrentCulture = new CultureInfo(languageCode);
                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(languageCode);
 
+                // 切换 WPF 资源字典
+                SwitchResourceDictionary(languageCode);
+
                 // 触发语言变更事件
                 LanguageChanged?.Invoke(null, EventArgs.Empty);
             }
+        }
+
+        /// <summary>
+        /// 切换 WPF 资源字典
+        /// 这是实现动态语言切换的核心方法
+        /// </summary>
+        /// <param name="languageCode">语言代码（如 zh-CN, en-US, ru-RU）</param>
+        private static void SwitchResourceDictionary(string languageCode)
+        {
+            if (Application.Current == null) return;
+
+            // 查找第一个资源字典（我们之前加载的那个）
+            var mergedDictionaries = Application.Current.Resources.MergedDictionaries;
+            if (mergedDictionaries.Count == 0) return;
+
+            // 创建新的资源字典
+            var newResource = new ResourceDictionary
+            {
+                Source = new Uri($"Resources/{languageCode}.xaml", UriKind.Relative)
+            };
+
+            // 替换第一个资源字典
+            mergedDictionaries[0] = newResource;
         }
 
         public static string Get(string key)

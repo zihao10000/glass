@@ -1,0 +1,141 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    
+    <!-- Главное меню -->
+    <sys:String x:Key="Menu.System">Система (_X)</sys:String>
+    <sys:String x:Key="Menu.Config">Конфиг (_S)</sys:String>
+    <sys:String x:Key="Menu.Plan">План (_P)</sys:String>
+    <sys:String x:Key="Menu.Report">Отчет (_R)</sys:String>
+    <sys:String x:Key="Menu.Language">Язык (_L)</sys:String>
+    <sys:String x:Key="Menu.Exit">Выход (_Q)</sys:String>
+    
+    <!-- Подменю Конфиг -->
+    <sys:String x:Key="Menu.ParamSettings">Настройки параметров (_P)</sys:String>
+    <sys:String x:Key="Menu.SystemSettings">Настройки системы</sys:String>
+    <sys:String x:Key="Menu.ParamManage">Управление параметрами</sys:String>
+    <sys:String x:Key="Menu.GlobalParam">Глобальные параметры</sys:String>
+    <sys:String x:Key="Menu.PLCControl">Управление PLC</sys:String>
+    <sys:String x:Key="Menu.CageLayer">Уровни клетки</sys:String>
+    <sys:String x:Key="Menu.License">Лицензия</sys:String>
+    
+    <!-- Подменю План -->
+    <sys:String x:Key="Menu.PrintLabel">Печать этикетки (_T)</sys:String>
+    
+    <!-- Подменю Отчет -->
+    <sys:String x:Key="Menu.DashboardA">Панель A</sys:String>
+    <sys:String x:Key="Menu.DashboardB">Панель B</sys:String>
+    <sys:String x:Key="Menu.QueryWindow">Окно запроса</sys:String>
+    <sys:String x:Key="Menu.LogWindow">Окно журнала</sys:String>
+    <sys:String x:Key="Menu.MeasurementPlatform">Платформа измерений</sys:String>
+    
+    <!-- Заголовки окон -->
+    <sys:String x:Key="Window.Inbound">Система склада стекла — Приемка</sys:String>
+    <sys:String x:Key="Window.Outbound">Система склада стекла — Отгрузка</sys:String>
+    <sys:String x:Key="Window.SystemSettings">Конфигурация системы</sys:String>
+    <sys:String x:Key="Window.License">Управление лицензией</sys:String>
+    <sys:String x:Key="Window.Query">Окно запроса</sys:String>
+    <sys:String x:Key="Window.Log">Окно журнала</sys:String>
+    <sys:String x:Key="Window.Measurement">Платформа измерений</sys:String>
+    <sys:String x:Key="Window.CageDashboard">Панель клетки</sys:String>
+    <sys:String x:Key="Window.CageLayer">Уровни клетки</sys:String>
+    <sys:String x:Key="Window.GlobalParam">Глобальные параметры</sys:String>
+    <sys:String x:Key="Window.PLCControl">Управление PLC</sys:String>
+    <sys:String x:Key="Window.Print">Печать этикетки</sys:String>
+    
+    <!-- Общие кнопки -->
+    <sys:String x:Key="Btn.Confirm">Подтвердить</sys:String>
+    <sys:String x:Key="Btn.Cancel">Отмена</sys:String>
+    <sys:String x:Key="Btn.Refresh">Обновить</sys:String>
+    <sys:String x:Key="Btn.Add">Добавить</sys:String>
+    <sys:String x:Key="Btn.Delete">Удалить</sys:String>
+    <sys:String x:Key="Btn.Save">Сохранить</sys:String>
+    <sys:String x:Key="Btn.Close">Закрыть</sys:String>
+    <sys:String x:Key="Btn.Exit">Выход</sys:String>
+    <sys:String x:Key="Btn.Start">Старт</sys:String>
+    <sys:String x:Key="Btn.Stop">Стоп</sys:String>
+    <sys:String x:Key="Btn.Import">Импорт</sys:String>
+    <sys:String x:Key="Btn.Export">Экспорт</sys:String>
+    <sys:String x:Key="Btn.Search">Поиск</sys:String>
+    <sys:String x:Key="Btn.Reset">Сброс</sys:String>
+    <sys:String x:Key="Btn.Print">Печать</sys:String>
+    <sys:String x:Key="Btn.Manual">Ручной</sys:String>
+    <sys:String x:Key="Btn.Auto">Авто</sys:String>
+    
+    <!-- Окно приемки -->
+    <sys:String x:Key="Inbound.ImportExcel">Импорт Excel</sys:String>
+    <sys:String x:Key="Inbound.PrintLabel">Печать этикетки</sys:String>
+    <sys:String x:Key="Inbound.ViewCage">Просмотр клетки</sys:String>
+    <sys:String x:Key="Inbound.ExportSummary">Экспорт сводки</sys:String>
+    <sys:String x:Key="Inbound.ExportMissing">Экспорт недостающих</sys:String>
+    <sys:String x:Key="Inbound.ScanFlowCard">Сканировать карту потока</sys:String>
+    <sys:String x:Key="Inbound.MarkDamaged">Отметить поврежденное</sys:String>
+    <sys:String x:Key="Inbound.ManualReport">Ручной отчет</sys:String>
+    <sys:String x:Key="Inbound.ShiftAB">Сдвиг A→B</sys:String>
+    <sys:String x:Key="Inbound.ManualInstock">Ручная приемка</sys:String>
+    <sys:String x:Key="Inbound.DetailedInfo">Подробная информация</sys:String>
+    <sys:String x:Key="Inbound.ExceptionRecords">Записи исключений</sys:String>
+    <sys:String x:Key="Inbound.CompareRecords">Записи сравнения</sys:String>
+    <sys:String x:Key="Inbound.RunLog">Журнал выполнения</sys:String>
+    <sys:String x:Key="Inbound.ParamSettings">Настройки параметров</sys:String>
+    <sys:String x:Key="Inbound.StartService">Запуск службы</sys:String>
+    <sys:String x:Key="Inbound.StopService">Остановка службы</sys:String>
+    
+    <!-- Панель инструментов -->
+    <sys:String x:Key="Toolbar.Refresh">Обновить</sys:String>
+    <sys:String x:Key="Toolbar.Param">Параметр</sys:String>
+    <sys:String x:Key="Toolbar.PrintLabel">Печать этикетки</sys:String>
+    <sys:String x:Key="Toolbar.CageScreen">Экран клетки</sys:String>
+    <sys:String x:Key="Toolbar.PlanManage">Управление планом</sys:String>
+    <sys:String x:Key="Toolbar.GlobalParam">Глобальный параметр</sys:String>
+    <sys:String x:Key="Toolbar.SystemSet">Настройка системы</sys:String>
+    <sys:String x:Key="Toolbar.Logout">Выход</sys:String>
+    <sys:String x:Key="Toolbar.RefreshPlan">Обновить план</sys:String>
+    <sys:String x:Key="Toolbar.ManualInstock">Ручная приемка</sys:String>
+    <sys:String x:Key="Toolbar.ICCard">IC карта</sys:String>
+    <sys:String x:Key="Toolbar.FlowCard">Карта потока</sys:String>
+    
+    <!-- Столбцы DataGrid -->
+    <sys:String x:Key="Col.ID">№</sys:String>
+    <sys:String x:Key="Col.Status">Статус</sys:String>
+    <sys:String x:Key="Col.OrderNo">Заказ №</sys:String>
+    <sys:String x:Key="Col.OrderName">Название заказа</sys:String>
+    <sys:String x:Key="Col.Length">Длина (мм)</sys:String>
+    <sys:String x:Key="Col.Width">Ширина (мм)</sys:String>
+    <sys:String x:Key="Col.GlassID">ID стекла</sys:String>
+    <sys:String x:Key="Col.ProductName">Название продукта</sys:String>
+    <sys:String x:Key="Col.Customer">Клиент</sys:String>
+    <sys:String x:Key="Col.Time">Время</sys:String>
+    <sys:String x:Key="Col.Message">Сообщение</sys:String>
+    <sys:String x:Key="Col.Result">Результат</sys:String>
+    <sys:String x:Key="Inbound.CCDData">Данные CCD</sys:String>
+    
+    <!-- Статус -->
+    <sys:String x:Key="Status.Running">Выполняется</sys:String>
+    <sys:String x:Key="Status.Stopped">Остановлено</sys:String>
+    <sys:String x:Key="Status.Waiting">Ожидание</sys:String>
+    <sys:String x:Key="Status.InStock">На приемке</sys:String>
+    <sys:String x:Key="Status.InStocked">На складе</sys:String>
+    <sys:String x:Key="Status.Damaged">Повреждено</sys:String>
+    <sys:String x:Key="Status.Error">Ошибка</sys:String>
+    
+    <!-- Параметры -->
+    <sys:String x:Key="Param.SortMethod">Метод сортировки</sys:String>
+    <sys:String x:Key="Param.GapSize">Размер зазора</sys:String>
+    <sys:String x:Key="Param.DataSource">Источник данных</sys:String>
+    <sys:String x:Key="Param.ScanRetry">Повтор сканирования</sys:String>
+    
+    <!-- Сообщения -->
+    <sys:String x:Key="Msg.ConfirmExit">Подтвердить выход?</sys:String>
+    <sys:String x:Key="Msg.ConfirmDelete">Подтвердить удаление?</sys:String>
+    <sys:String x:Key="Msg.SaveSuccess">Сохранено успешно</sys:String>
+    <sys:String x:Key="Msg.SaveFailed">Ошибка сохранения</sys:String>
+    <sys:String x:Key="Msg.LoadSuccess">Загрузка успешна</sys:String>
+    <sys:String x:Key="Msg.LoadFailed">Ошибка загрузки</sys:String>
+    <sys:String x:Key="Msg.NoData">Нет данных</sys:String>
+    <sys:String x:Key="Msg.Processing">Обработка...</sys:String>
+    <sys:String x:Key="Msg.Completed">Завершено</sys:String>
+    <sys:String x:Key="Msg.Failed">Ошибка</sys:String>
+    <sys:String x:Key="Msg.Success">Успех</sys:String>
+    
+</ResourceDictionary>
